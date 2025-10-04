@@ -1,11 +1,11 @@
-title: dash
+url: https://ho4ngphwc.github.io
+
+title: ho4ngphwc
 author: GitHub User
-email: miguel-gonzalez@gmx.de
+email: vohoangphuc.contact@gmail.com
 description: > # this means to ignore newlines until "show_exerpts:"
-  Write an awesome description for your new site here. You can edit this
-  line in _config.yml. It will appear in your document head meta (for
-  Google search results) and in your feed.xml site description.
-show_excerpts: false # set to true to show excerpts on the homepage
+    Nơi ghi lại hành trình pentest & red team của mình 🚀
+show_excerpts: true # set to true to show excerpts on the homepage
 
 paginate: 1
 paginate_path: "/blog/page:num/"
@@ -26,16 +26,16 @@ dash:
 
   # generate social links in footer
   # supported colors: green, red, orange, blue, cyan, pink, teal, yellow, indigo, purple
-  social_links:
-    - url: https://twitter.com/bitbrain_
-      icon: twitter-square
-      color: cyan
-    - url: https://bitbrain.itch.io
-      icon: itch-io
-      color: red
-    - url: https://github.com/bitbrain
-      icon: github-square
-      color: purple
+  # social_links:
+  #   - url: https://twitter.com/bitbrain_
+  #     icon: twitter-square
+  #     color: cyan
+  #   - url: https://bitbrain.itch.io
+  #     icon: itch-io
+  #     color: red
+  #   - url: https://github.com/bitbrain
+  #     icon: github-square
+  #     color: purple
 
   # wether the author box should be displayed
   show_author: true
@@ -49,8 +49,8 @@ dash:
   # Replaces the default avatar provider (gravatar)
   #avatar_source: github
   #github_username: bitbrain
-  #avatar_source: local
-  #avatar_path: /assets/avatar.png
+  avatar_source: local
+  avatar_path: /assets/avatar.gif
 
 # Build settings
 theme: jekyll-dash
