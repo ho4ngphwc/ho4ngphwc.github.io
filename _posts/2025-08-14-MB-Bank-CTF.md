@@ -8,7 +8,7 @@ categories: jekyll update
 
 # QuickBlog - MB Bank
 
-## Giao diện web 
+* Giao diện web 
 
 Phần login:
 ![image](https://hackmd.io/_uploads/HJPIUJDOlg.png)
@@ -36,7 +36,7 @@ Từ đây thì có thể đoán web chạy trên web server của CherryPy 18.1
 
 Đọc qua file Dockerfile. 
 
-```dockerfile=
+```dockerfile
 FROM python:3.11-alpine
 
 # Install dependencies
@@ -192,7 +192,7 @@ Và hàm login và nó cũng dùng `validate_input` cho username và lưu `sessi
 
 Hàm tạo bài viết mới là `new_post` do dài quá nên mình copy vào đây nhá !! 
 
-```python=
+```python
 @cherrypy.expose
 	def new_post(self, title=None, content=None):
 		username = cherrypy.session.get('username')
@@ -324,7 +324,7 @@ Phần này nó dùng để xử lý khoảng trắng nếu `$~` thì nó xử l
 - Phần này xử lý bullet lists dựa trên regex là bắt đầu ở đầu dòng có dấu `-`, `+` hoặc `*` và theo sau đó là khoảng trắng thì là bullet list đầy nội dung vào trong thẻ `<li>` sau đó bỏ vào thẻ `<ul>`. 
 - Xử lý số cũng theo dạng regex là `\d+` là nhìu số, `\.\` là dấu chấm và `\s` là khoảng trắng sau đó thì được bỏ vào thẻ `<li>` rồi đẩy vào thẻ `<ol>`
 
-```javascript=
+```javascript
 //HANDLE UNDERLINES FOR H1 & H2
 			if (i < lines.length) {
 				let nextLine = lines[i + 1];
@@ -366,7 +366,7 @@ Phần này nó dùng để xử lý khoảng trắng nếu `$~` thì nó xử l
 
 Phần này dùng cho xử lý `h1` và `h2` nhưng dưới dạng gạch dưới `=` và `_`
 
-```javascript=
+```javascript
 //HANDLE HEADERS
 			if (line.startsWith('### ')) {
 				const isUsed = processedLines.length > 0;
@@ -417,7 +417,7 @@ Phần này dùng để xử lý các header dạng markdown khi bắt đầu b�
 - `## ` là cho thẻ `<h2>`
 - `# ` là cho thẻ `<h1>` 
 
-```javascript=
+```javascript
 //HANDLE CODE BLOCKS
 			if (line.startsWith('```')) {
 				inCodeBlock = !inCodeBlock;
@@ -514,7 +514,7 @@ Nếu mình truyền payload XSS mà nó trigger thông qua DNS server, trả v�
 
 Ở đây mình viết 1 script như sau:
 
-```javascript!
+```javascript
 function convertToHex(str) {
     var hex = "";
     for (var i = 0; i < str.length; i++) {
@@ -553,8 +553,7 @@ Giải thích script trên:
 
 Như vậy là xong phần trả session cookie về DNS server của mình kiểm soát. Để có bypass và tránh gây lỗi khi nhập trên form của ứng dụng thì mình cần viết 1 script và cũng để sinh payload lun. 
 
-```javascritp!
-
+```javascript
 def to_ascii_codes(string):
     return "".join(str(hex(ord(c))) for c in string).replace("0x", "\\x").replace("\\xa", "\\x0a")
 
@@ -654,7 +653,7 @@ Như vậy, mình có ý tưởng vì trong ứng dụng có 1 file `readflag.c`
 
 Cho nên, nếu mình upload 1 file vào trong thư mục `sessions` và trong file đó lại chứa 1 lệnh để nó chạy lệnh system thì sao. 
 
-```python!
+```python
 import requests, pickle, io, os
 HOST, PORT = "127.0.0.1", 1337
 CHALLENGE_URL = f"http://{HOST}:{PORT}"
