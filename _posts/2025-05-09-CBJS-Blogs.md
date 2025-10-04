@@ -128,3 +128,5 @@ Quá trình phân tích bảo mật đã phát hiện ra lỗ hổng nghiêm tr�
 và không áp dụng các biện pháp xác thực/phân quyền đầy đủ. Tác động tiềm tàng bao gồm lộ dữ liệu người dùng, leo thang đặc quyền, và kiểm soát máy chủ, đe dọa nghiêm trọng đến tính bảo mật và toàn vẹn của hệ thống.
 <p style="text-align: right;">Trân trọng, h4gphwc</p>
 
+
+
