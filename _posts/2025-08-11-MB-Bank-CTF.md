@@ -34,7 +34,7 @@ Từ đây, mình bắt đầu đọc các file để tìm ra bug sqli.
 
 Sau khi truyền payload `../index.php` thì có được source như sau. 
 
-```PHP=
+```PHP
 <?php
 error_reporting(0);
 include('conn.php');
@@ -232,7 +232,7 @@ Sau khi đọc source thì phát hiện câu query lấy `description` nối chu
 
 Bộ regex như sau: 
 
-```mysql
+```SQL
 r"('|--|\bOR\b|\bAND\b|\bUNION\b|\bSELECT\b|\bINSERT\b|\bUPDATE\b|\bDELETE\b|\bDROP\b)"
 ```
 

