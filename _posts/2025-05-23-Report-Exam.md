@@ -217,10 +217,10 @@ Khi người dùng click vào link rút gọn, trang `safe-redirect.blade.php` s
 ![image](https://hackmd.io/_uploads/Hy1zJUJzgg.png)
 <p style="text-align:center"><em>File `safe-redirect.blade.php`</em></p>
 
-{% raw %}
+
 Trong đó, biến `$pageDescription` rơi vào `{!! !!}` ở dòng 20 - đây là cú pháp render ra tag HTML mà không có escape.
-Mà giá trị biến `$pageDescription`, được lấy từ thẻ `<meta name="description" content="{{ $pageDescription }}">` tại `default.blade.php`.
-{% endraw %}
+Mà giá trị biến `$pageDescription`, được lấy từ thẻ {% raw %}`<meta name="description" content="{{ $pageDescription }}">`{% endraw %} tại `default.blade.php`.
+
 
 ![image](https://hackmd.io/_uploads/H1u4lLyMlx.png)
 <p style="text-align:center"><em>File `default.blade.php`</em></p>
