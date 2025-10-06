@@ -2,7 +2,7 @@
 layout: post
 title:  "Expressway HTB"
 date:   2025-10-6 21:25:00 +0700
-tags: Redteam Machine ExpresswayHTB Machine-Easy
+tags: Redteam ExpresswayHTB Machine-Easy
 categories: jekyll update
 ---
 
