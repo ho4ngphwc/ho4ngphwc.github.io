@@ -103,7 +103,7 @@ Tìm thông tin trên mạng thì nó liên quan đến 1 **CVE-2025-32463**
 2. Xây dựng 1 chroot directory với `/etc/nsswitch.conf` mà mình đã custom (để khi hệ thống tra cứu tên, loader sẽ tìm thư viện đó trong chroot)
 3. Đặt file **.so** đã biên dịch vào đúng tên và đường dẫn khớp với cấu trúc chroot (ví dụ `libnss_/exploit.so.2`)
 4. Chạy **sudo** SUID bị vuln với tùy chọn chroot (ví dụ `--chroot`) đối với một lệnh vô hại; khi **sudo** load NSS bên trong chroot, constructor của **.so** độc hại sẽ chạy với quyền root.
-5. 
+
 ### Xây dựng khai thác 
 
 1. Chuẩn bị 1 file C payload (payload này dùng constructor để chạy khi **.so** được load lên): 
@@ -123,11 +123,14 @@ cp /etc/group exploit_stage/fsociety/etc
 gcc -shared -fPIC -Wl,-init,exploit -o exploit_stage/libnss_/fsociety.so.2 exploit.c
 ``` 
 
-Sau đó, cuối cùng chạy **sudo** có lỗ hổng (ví dụ `/usr/local/bin/sudo` và sudo chroot option -R)
+3. Sau đó, cuối cùng chạy **sudo** có lỗ hổng (ví dụ `/usr/local/bin/sudo` và sudo chroot option -R)
 
 ![image](https://hackmd.io/_uploads/HyM9xIWpex.png)
 
 ![image](https://hackmd.io/_uploads/r1M6eL-pgx.png)
+
+
+
 
 
 
