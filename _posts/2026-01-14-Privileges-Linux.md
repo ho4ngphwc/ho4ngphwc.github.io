@@ -3,8 +3,6 @@ layout: post
 title:  "Pirvileges Escalation Linux"
 date:   2026-01-14 09:00:00 +0700
 tags: redteam Privileges-Linux
-img_path:  /assets/img/redteam-privilegesLinux
-image: /assets/img/redteam-privilegesLinux
 categories: jekyll update
 --- 
 
