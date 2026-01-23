@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Privileges Escalation Linux"
-tags: InitialAccessLinux redteam
+tags: PrivilegesLinux redteam
 categories: jekyll update
 ---
 
