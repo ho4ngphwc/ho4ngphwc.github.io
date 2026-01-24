@@ -6,54 +6,94 @@ tags: redteam Recon
 categories: jekyll update
 ---
 
-# Recon Github 
+# Recon Github
 
-![image](https://hackmd.io/_uploads/HygUDFNaxl.png)
+> Mục tiêu 1: tìm đến đường dẫn một trang blog cũ của **`CJ23Group`**
+> 
 
-Tiến hành tìm kiếm tại **Github search**
+### Google
 
-![image](https://hackmd.io/_uploads/HkbawFEpge.png)
+---
 
-Truy cập vào trong repo và tìm đến các commit. 
+Đầu tiên ta thực hiện search google về từ khóa **`CJ23Group`** + **`github`** 
 
-![image](https://hackmd.io/_uploads/ByXM_YEpex.png)
+![image.png](/assets/images/redteam/Recon/github/image.png)
 
-Khi vào **Update README.md** đầu tiên thì có nội dung như sau.
+Mình vào thử trong trang xem thử có gì ?
 
-![image](https://hackmd.io/_uploads/ryqHOK4alx.png)
+![image.png](/assets/images/redteam/Recon/github/image%201.png)
 
-Từ đây thấy có link `http://blog.cj23group.com/innovation-projects-and-blog/` --> đây là link blog cũ của tổ chức. 
+Tại đây thì mình chỉ thấy có một chức năng **`CONTACT US`** 
 
-![image](https://hackmd.io/_uploads/ryts_tE6ee.png)
+![image.png](/assets/images/redteam/Recon/github/image%202.png)
 
-Quan sát người commit trong repo này nhiều nhất. 
+### Github Search
 
-![image](https://hackmd.io/_uploads/SybxYYETxx.png)
+---
 
-Sau đó mình search cái tên này trên github `https://github.com/ak4txuk1`
+Có vẻ là không có thông tin gì → nên mình dùng **`Github Search`** 
 
-![image](https://hackmd.io/_uploads/rJkSKY4pxe.png)
+![image.png](/assets/images/redteam/Recon/github/image%203.png)
 
-![image](https://hackmd.io/_uploads/HkhdFK4Tle.png)
+Mình tìm ra repo có liên quan 😎 → nhảy vào xem thử
 
-Nhìn thấy trong user này có 1 repo là **php-todo-list**. Mình sẽ thực hiện tìm kiếm trong repo đó. 
+![image.png](/assets/images/redteam/Recon/github/image%204.png)
 
-![image](https://hackmd.io/_uploads/S1oCFKVTle.png)
+Có vẻ đây đúng là repo dành cho web blog trên. 
 
-![image](https://hackmd.io/_uploads/rkPxcYETxx.png)
+Khi tìm ra github thì mình nên vào đọc commit.
 
-Sau khi truy cập vào trong commit thì thấy khá nhiều commit 
+![image.png](/assets/images/redteam/Recon/github/image%205.png)
 
-![image](https://hackmd.io/_uploads/r1OeoFVaxe.png)
+Đọc qua các commit thì mình tìm dược đoạn như sau: 
 
-Cho nên là không thể xem từng cái.
+![image.png](/assets/images/redteam/Recon/github/image%206.png)
 
-Mình dúng tới 1 tool như sau: 
+Thì đây có vẻ đường link cũ của blog này 
 
-![image](https://hackmd.io/_uploads/rypTiFETlx.png)
+![image.png](/assets/images/redteam/Recon/github/image%207.png)
 
-Kéo xuống dưới thì ngày tháng 
+**`CBJS{http://blog.cj23group.com/innovation-projects-and-blog/}`**
 
-![image](https://hackmd.io/_uploads/HyIy3K4Txl.png)
+> Mục tiêu 2: Tìm Github cá nhân của nhân viên thuộc tổ chức **`CJ23Group`**
+> 
+
+Thì trong commit lúc thì quan sát xem ai đã commit 
+
+![image.png](/assets/images/redteam/Recon/github/image%208.png)
+
+Đó là **`ak4txuk1`** → cho nên mình tìm về profile user này trên github **`https://github.com/ak4txuk1`**
+
+![image.png](/assets/images/redteam/Recon/github/image%209.png)
+
+**`CBJS{https://github.com/ak4txuk1}`**
+
+> Mục tiêu 3: tìm username/password trong repo của nhân viên
+> 
+
+Từ profile này thì mình thấy có một repo 😎
+
+Mình tiến hành search trong repo này thôi 😀 
+
+![image.png](/assets/images/redteam/Recon/github/image%2010.png)
+
+> Mục tiêu 4:  Xác định thời gian anh nhân viên ở Lab 1.2 đã bất cẩn commit credential lên repo **`php-todo-list`**.
+> 
+
+Giờ mình xác định thời gian đã commit credential lên github. 
+
+Nó nằm trong **`todo.class.php`** 
+
+![image.png](/assets/images/redteam/Recon/github/image%2011.png)
+
+Nhưng sau khi đi vào phần commit thì quá nhiều commit 😣 Cho nên mình sẽ dùng 1 tool 😎 → **`gitleaks`** 
+
+![image.png](/assets/images/redteam/Recon/github/image%2012.png)
+
+Sau đó mình đọc **`report.json`** 
+
+Mình phát hiện ra khá nhiều thứ thú vị 😎 
+
+![image.png](/assets/images/redteam/Recon/github/image%2013.png)
 
 
