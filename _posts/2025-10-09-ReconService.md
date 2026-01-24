@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Recon Web Service"
+title: "Recon Services"
 time: 2025-10-09 10:11:00 +0700
 tags: redteam Recon
 categories: jekyll update
