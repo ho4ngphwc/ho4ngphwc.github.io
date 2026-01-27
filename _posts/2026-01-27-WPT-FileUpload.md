@@ -6,8 +6,6 @@ tags: WPT
 categories: jekyll update
 ---
 
-# File Upload
-
 ## 🧪 Level 1
 
 ---
