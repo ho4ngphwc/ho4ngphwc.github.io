@@ -192,7 +192,7 @@ Nhưng đầu tiên mình cần thử lấy ký tự đầu tiên của file nh�
 Như vậy với ý tưởng này mình thực hiện viết một đoạn script dể nó có thể duyệt qua hết các chữ cái ở tên file. 
 
 ```python
-**import requests
+import requests
 import string
 import sys 
 
@@ -219,7 +219,7 @@ for i in range(1, 25):
     if not found:
         break 
 
-print("\n[+] Done: ", path_filename)**
+print("\n[+] Done: ", path_filename)
 
 ```
 
@@ -252,7 +252,7 @@ Như vậy thì nó đã **`sleep`** hơn 5 giây nghĩa là server đã thực 
 Vậy mình dựa vào cách level 6 để thực hiện để lấy file. 
 
 ```python
-**import requests
+import requests
 import string
 import sys
 import time
@@ -285,13 +285,13 @@ for i in range(1, 25):
     if not found:
         break 
 
-print("\n🧪 Done: ", pathname)**
+print("\n🧪 Done: ", pathname)
 ```
 
 Sau đó mình đã lấy được **`pathname`** 
 
 ![image.png](/assets/images/WPT/OsCommand/image%2037.png)
 
-Rồi mình thực đọc file tương tự. 
+Rồi mình thử đọc file tương tự như cách tìm path_filename
 
 ![image.png](/assets/images/WPT/OsCommand/image%2038.png)
