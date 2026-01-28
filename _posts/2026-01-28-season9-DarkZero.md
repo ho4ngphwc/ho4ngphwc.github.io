@@ -1,4 +1,10 @@
-# DarkZero 
+---
+layout: post
+title: "DarkZero"
+date: 2026-01-27 14:15:00 +0700
+tags: redteam Machine-Hard Windows
+categories: jekyll update
+--- 
 
 ## Recon 
 
