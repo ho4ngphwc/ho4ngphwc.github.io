@@ -109,15 +109,15 @@ Và kèm theo thì mình được cung cấp 1 credential là: `john.w / RFulUtO
 
 ## Khai thác SMB 
 
-![image](https://hackmd.io/_uploads/r11iHS-Cgx.png)
+![image](/assets/images/HTB/season9/DarkZero/image1.png)
 
 Thì đây mình thấy có **ADMIN$ và C$**, thường thì nếu user ko phải admin thì sẽ ko vào được.
 
 Còn **IPC$, NETLOGON và SYSVOL** thường thì trên Domain Controller sẽ có. 
 
-![image](https://hackmd.io/_uploads/SJt6LSbAxl.png)
+![image](/assets/images/HTB/season9/DarkZero/image2.png)
 
-![image](https://hackmd.io/_uploads/Bk1bvSbClg.png)
+![image](/assets/images/HTB/season9/DarkZero/image3.png)
 
 Nhìn thấy có 4 user:
 - **Administrator**
@@ -129,15 +129,15 @@ Mục tiêu thì mình cần lấy được user **Administrator**.
 
 ## Khai thác MSSQL 
 
-![image](https://hackmd.io/_uploads/H17yFBWCgl.png)
+![image](/assets/images/HTB/season9/DarkZero/image4.png)
 
 Điều đầu tiên cần kiểm tra là có link tới server nào ko ? 
 
-![image](https://hackmd.io/_uploads/rk2Vtrb0gl.png)
+![image](/assets/images/HTB/season9/DarkZero/image5.png)
 
 Kết quả thì có link qua **DC02.darkzero.ext**, và server hiện tại mình đang đứng là **dc01_sql_svc** được dùng làm Remote login. Như vậy thì coi như mình có thể thực hiện query trên **DC02**
 
-![image](https://hackmd.io/_uploads/By_QnHZClg.png)
+![image](/assets/images/HTB/season9/DarkZero/image6.png)
 
 Khi đó mình dùng link tới **DC02** và thực hiện dùng `xp_cmdshell` thì đây là 1 dạng cho phép mình chạy lệnh hệ điều hành mà MSSQL cho phép. 
 
@@ -149,58 +149,58 @@ Nhưng mà từ đây thì mình có thể tải 1 tool lên là **winPEAS** và
 
 Thì lệnh để tạo 1 file payload chứa reverse shell 
 
-![image](https://hackmd.io/_uploads/rkcxyLbRlg.png)
+![image](/assets/images/HTB/season9/DarkZero/image7.png)
 
 Sau khi tạo thì cần mở server trên host attack, rồi mình tải file payload thông qua shell MSSQL. 
 
-![image](https://hackmd.io/_uploads/rkoJeLbClx.png)
+![image](/assets/images/HTB/season9/DarkZero/image8.png)
 
 Tiếp đó mình set trong metasploit để chuẩn bị kết nối. 
 
-![image](https://hackmd.io/_uploads/ryfHMIZRgg.png)
+![image](/assets/images/HTB/season9/DarkZero/image9.png)
 
 Đồng thời thì chạy thực thi file revshell.exe tại DC02 qua DC01.
 
-![image](https://hackmd.io/_uploads/S1ViG8-Rle.png)
+![image](/assets/images/HTB/season9/DarkZero/image10.png)
 
-![image](https://hackmd.io/_uploads/r1yCGIbCxl.png)
+![image](/assets/images/HTB/season9/DarkZero/image11.png)
 
 Đến đây thì mình list folder, và vào trong folder Administrator nhưng bị cấm. 
 
-![image](https://hackmd.io/_uploads/SkYdQUbRlx.png)
+![image](/assets/images/HTB/season9/DarkZero/image12.png)
 
 Và đến đây, thì cũng hết ý để khai thác, cho nên mình cần đến tool **winPEAS** ra tay. 
 
-![image](https://hackmd.io/_uploads/BkWrLRbRxg.png)
+![image](/assets/images/HTB/season9/DarkZero/image13.png)
 
 Sau khi chạy ra thì mình thu được version OS, cũng như nó là Datacenter. 
 
-![image](https://hackmd.io/_uploads/Byrpv0WAxx.png)
+![image](/assets/images/HTB/season9/DarkZero/image14.png)
 
 Sau khi tìm hiểu thì mình tìm được CVE-2024-30088 
 
-![image](https://hackmd.io/_uploads/H1VVHyzCxx.png)
+![image](/assets/images/HTB/season9/DarkZero/image15.png)
 
 - [Nist ](https://nvd.nist.gov/vuln/detail/cve-2024-30088)
 - [Microsoft](https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-30088)
 
 Thay vì phải tìm PoC để exploit thủ công thì mình dùng metasploit 
 
-![image](https://hackmd.io/_uploads/ByBH8kzCgx.png)
+![image](/assets/images/HTB/season9/DarkZero/image16.png)
 
 Từ reverse shell lúc đầu thì mình Ctrl+Z để search cve-2024-30088, sau khi set up dùng payload cve thì mình cần set vào session đang chạy reverse shell cũ. 
 
-![image](https://hackmd.io/_uploads/HyTDRJGReg.png)
+![image](/assets/images/HTB/season9/DarkZero/image17.png)
 
 Kết quả thì mình đã leo lên thành **nt authority\system** đây là tài khoản có quyền mạnh nhất trong windows. Sau đó thì khai thác tiếp trong folder của user.
 
-![image](https://hackmd.io/_uploads/B1xLJlGRgl.png)
+![image](/assets/images/HTB/season9/DarkZero/image18.png)
 
 #### Cách khai thác mà ko dùng tới metasploit
 
 Đầu tiên thì mình dùng `xp_cmdshell` để list ip trên **DC02**
 
-![image](https://hackmd.io/_uploads/ryms1QG0ee.png)
+![image](/assets/images/HTB/season9/DarkZero/image19.png)
 
 Như vậy thì nó hoàn toàn nằm bên trong đây là ip internal. 
 
@@ -209,21 +209,21 @@ Sau đó, mình thiết lập **ligolo** để tiến hành pivoting.
 
 Mình cần chuẩn bị 1 file agent để upload lên windows và 1 proxy trên kali. 
 
-![image](https://hackmd.io/_uploads/BJ3AemM0ex.png)
+![image](/assets/images/HTB/season9/DarkZero/image20.png)
 
 Sau đó thiết lập proxy dựa theo tài liệu này [Thiết lập Proxy](https://www.stationx.net/how-to-use-ligolo-ng/)
 
-![image](https://hackmd.io/_uploads/SJBKW7MAle.png)
+![image](/assets/images/HTB/season9/DarkZero/image21.png)
 
 Trên server proxy đã nhận kết nối về. 
 
-![image](https://hackmd.io/_uploads/ryMoWQMRlx.png)
+![image](/assets/images/HTB/season9/DarkZero/image22.png)
 
 Tiếp tục thiết lập tunnel - để lấy hash của Admin qua **psexec.py**
 
 Nhưng đây mới là DC02, vậy còn DC01 thì chưa khai thác gì?
 
-![image](https://hackmd.io/_uploads/ry3yllMAxl.png)
+![image](/assets/images/HTB/season9/DarkZero/image23.png)
 
 Nhưng mà cả hai server này lúc đầu đã link với nhau. Quay lại kết quả scan ban đầu thấy trên DC01 có service kerberos. 
 
@@ -231,21 +231,21 @@ Mà máy DC02 đã chiếm quyền, nếu mình chạy 1 tool bắt ticket trên
 
 Đầu tiên thì mình cần upload tool **Rubeus.exe** lên DC02 
 
-![image](https://hackmd.io/_uploads/H10hkzLCge.png)
+![image](/assets/images/HTB/season9/DarkZero/image24.png)
 
 Để upload như trên thì cần phải leo lên được Admin bằng cve lúc đầu. 
 
 Sau khi, upload xong thì mình dùng **shell** để chạy. 
 
-![image](https://hackmd.io/_uploads/S1deVMIAge.png)
+![image](/assets/images/HTB/season9/DarkZero/image25.png)
 
 Thì tool đã bắt được 7 ticket, sau đó mình truy cập vào DC01 để yêu cầu tới DC02. 
 
-![image](https://hackmd.io/_uploads/rk2HVMLCxg.png)
+![image](/assets/images/HTB/season9/DarkZero/image26.png)
 
 Thì trên Rebeus đã bắt được. 
 
-![image](https://hackmd.io/_uploads/Hyiv4zLAll.png)
+![image](/assets/images/HTB/season9/DarkZero/image27.png)
 
 Tiếp theo, mình cần lấy về bỏ vào trong 1 file là **ticket.bs64.kirbi**
 
@@ -255,11 +255,11 @@ Mình cần chạy 1 file để convert ticket này sang file cache bằng **pyt
 
 Sau khi conver thì chạy `export KRB5CCNAME=dc01_admin.ccache` rồi dùng klist để hiển thị ticket keberos này. 
 
-![image](https://hackmd.io/_uploads/rkZRB78Rlg.png)
+![image](/assets/images/HTB/season9/DarkZero/image28.png)
 
 Sau đó, dùng tool `impacket-secretsdump` để dump hash, nhưng giờ bị như thế này. 
 
-![image](https://hackmd.io/_uploads/Bks_UmI0eg.png)
+![image](/assets/images/HTB/season9/DarkZero/image29.png)
 
 Điều này có nghĩa liên quan đến **SPN** - Service Principal Name - tên duy nhất của dịch vụ trong Kerberos. 
 
@@ -267,17 +267,17 @@ Khi mình dùng **impacket-secretsdump** gửi tới thì nó sẽ trả SPN nà
 
 Cho nên mình sẽ dùng `sudo nptdate -u 10.10.11.89`, rồi mình chạy lại. 
 
-![image](https://hackmd.io/_uploads/rJ-EbzQ1bx.png)
+![image](/assets/images/HTB/season9/DarkZero/image30.png)
 
 Sau khi có hash thì mình dùng `evil-winrm` để vào
 
-![image](https://hackmd.io/_uploads/SJx3-Gmkbx.png)
+![image](/assets/images/HTB/season9/DarkZero/image31.png)
 
 Từ đây, mình có thể leo vào bằng tài khoản Admin, sau đó mình có thể đọc `root.txt`
 
-![image](https://hackmd.io/_uploads/SyiRbzXkWx.png)
+![image](/assets/images/HTB/season9/DarkZero/image32.png)
 
-![image](https://hackmd.io/_uploads/H19eMGmyWx.png)
+![image](/assets/images/HTB/season9/DarkZero/image33.png)
 
 
 
