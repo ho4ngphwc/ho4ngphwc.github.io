@@ -3548,5 +3548,3 @@ Impacket v0.13.0.dev0 - Copyright Fortra, LLC and its affiliated companies
 ```
 
 ![image](/assets/images/HTB/season9/Hercules/image%20105.png)
-
-![image](/assets/images/HTB/season9/Hercules/image%20106.png)
