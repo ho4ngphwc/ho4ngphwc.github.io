@@ -92,23 +92,23 @@ Sau khi ghi url `hercules.htb` vào trong `/etc/hosts`
 
 Đầu tiên cần recon về cái web này. 
 
-![image](/assets/images/HTB/season9/Hercules/image1.png)
+![image](/assets/images/HTB/season9/Hercules/image%201.png)
 
 Như vậy, thấy nó chạy trên `Microsoft-IIS/10.0`
 
 Tiếp tục như vậy thì cho chạy `shortscan` thử 
 
-![image](/assets/images/HTB/season9/Hercules/image2.png)
+![image](/assets/images/HTB/season9/Hercules/image%202.png)
 
 Thì sau khi đọc thì thấy có thể bị `web.config` và `precomplied.config`
 
 Thì mình truy cập qua web thì thấy có hai port là `80` và `443`
 
-![image](/assets/images/HTB/season9/Hercules/image3.png)
+![image](/assets/images/HTB/season9/Hercules/image%203.png)
 
 Sau khi mình tìm ra được phần `Contact` 
 
-![image](/assets/images/HTB/season9/Hercules/image4.png)
+![image](/assets/images/HTB/season9/Hercules/image%204.png)
 
 Nhưng mà nó không có ảnh hưởng gì hay lỗ hổng gì vì nó chỉ là 1 form gửi đến server, ko bị **Stored XSS** hay **SSRF**,...
 
@@ -116,11 +116,11 @@ Và trước đó mình đã recon `http` thì ko có gì xảy ra.
 
 Cho nên mình tiếp tục recon qua `https`. 
 
-![image](/assets/images/HTB/season9/Hercules/image5.png)
+![image](/assets/images/HTB/season9/Hercules/imag%205.png)
 
 Từ đây mình thấy nó có endpoint `login`
 
-![image](/assets/images/HTB/season9/Hercules/image6.png)
+![image](/assets/images/HTB/season9/Hercules/image%206.png)
 
 Thấy nó ghi là **SSO - Single Sign-On** nghĩa là login 1 lần là truy cập được nhiều dịch vụ.
 
@@ -131,7 +131,7 @@ nhưng cũng không có kết quả.
 
 Cho nên mình thử fuzz username - password xem sao. 
 
-![image](/assets/images/HTB/season9/Hercules/image7.png)
+![image](/assets/images/HTB/season9/Hercules/image%207.png)
 
 Thì mình thấy thì bị giới hạn login sai. Chỉ còn cách là mình tìm credentials thuiii. 
 
@@ -288,7 +288,7 @@ Thì khi mà crendentials mình đoán thì nó sẽ in ra `Invalid login attemp
 
 Và nếu mình thử user scan ra trong danh sách. 
 
-![image](/assets/images/HTB/season9/Hercules/image8.png)
+![image](/assets/images/HTB/season9/Hercules/image%208.png)
 
 Thì nó in ra thông báo là `Login attempt failed` -> thì cho thấy username thì hợp lệ. 
 
@@ -299,7 +299,7 @@ Như vậy có thể thấy nó kiểm tra dựa vào username. Và có ở đâ
 
 Trong machine **ghost**, tác giả đã thực hiện **ldap-injection-password-brute-force**, cho nên mình thử thực hiện cách này xem sao. 
 
-![image](/assets/images/HTB/season9/Hercules/image9.png)
+![image](/assets/images/HTB/season9/Hercules/image%209.png)
 
 Phát hiện ra 1 thẻ **input**: 
 
@@ -319,11 +319,11 @@ Nếu mình thử payload là `username=a*`, để xem nó hợp lệ ko nếu h
 
 Thử encode URL hai lần xem nó có gì khác biệt -> nó in ra `Login attempt failed`
 
-![image](/assets/images/HTB/season9/Hercules/image10.png)
+![image](/assets/images/HTB/season9/Hercules/image%2010.png)
 
 Như vậy có nghĩa là hợp lệ, như vậy thì có 1 username bắt đầu bằng `a*` thử tiếp `aa*` hoặc một ký tự nào đó khác `a`. 
 
-![image](/assets/images/HTB/season9/Hercules/image11.png)
+![image](/assets/images/HTB/season9/Hercules/image%2011.png)
 
 Ở đây nó là `Invalid login attempt` -> thì mình thử ký tự khác. 
 
@@ -331,7 +331,7 @@ Tiếp tục mình đoán câu query là `(&(username=will.s)(description=*))` v
 
 Mình thử payload `a*` trước. 
 
-![image](/assets/images/HTB/season9/Hercules/image12.png)
+![image](/assets/images/HTB/season9/Hercules/image%2012.png)
 
 Từ đây mình xác định là nó ko bắt đầu từ `a*` thì mình viết script tự động làm việc này với 1 danh sách username đã tìm ra. 
 
@@ -714,11 +714,11 @@ Mình đã có 1 password của `johnathan.j` => `change*th1s_p@ssw()rd!!`
 
 Sau khi có credential này thì mình thử login vào trong smb để double check lại để đảm bảo valid cre. 
 
-![image](/assets/images/HTB/season9/Hercules/image13.png)
+![image](/assets/images/HTB/season9/Hercules/image%2013.png)
 
 Thì lại hiển thị valid với `ken.w`. Cho mình login lại vào bằng `ken.w` và enum ra tất cả users.
 
-![image](/assets/images/HTB/season9/Hercules/image14.png)
+![image](/assets/images/HTB/season9/Hercules/image%2014.png)
 
 ```
 SMB         dc.hercules.htb 445    dc               [*]  x64 (name:dc) (domain:hercules.htb) (signing:True) (SMBv1:False) (NTLM:False)
