@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Conversor"
-date: 2026-02-03 10:00:00 +0700
+date: 2026-02-02 10:00:00 +0700
 tags: redteam Machine-Easy Linux
 categories: jekyll update
 --- 

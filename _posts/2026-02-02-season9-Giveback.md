@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "GiveBack"
-date: 2026-02-03 10:00:00 +0700
+date: 2026-02-02 10:00:00 +0700
 tags: redteam Machine-Medium Linux
 categories: jekyll update
 --- 
@@ -2175,5 +2175,3 @@ Giờ mình thì chạy **`sudo /opt/debug`** 1 lần nữa trong **`/root`** n�
 ![image](/assets/images/HTB/season9/Giveback/image%2052.png)
 
 ![image](/assets/images/HTB/season9/Giveback/image%2053.png)
-
-![image](/assets/images/HTB/season9/Giveback/image%2054.png)
