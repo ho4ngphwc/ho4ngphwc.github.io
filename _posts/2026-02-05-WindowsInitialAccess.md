@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "WindowsInitialAccess"
+title:  "Windows Initial Access"
 date:   2026-02-05 10:15:00 +0700
 tags: redteam WindowsInitialAccess
 categories: jekyll update
@@ -727,5 +727,6 @@ Từ đây mình đã thực hiện lệnh **`cmd`** như vậy mình hoàn toà
 ![image](/assets/images/redteam/WindowsInitialAccess/image%2064.png)
 
 Từ đây mình thực đọc flag.
+
 
 ![image](/assets/images/redteam/WindowsInitialAccess/image%2065.png)
