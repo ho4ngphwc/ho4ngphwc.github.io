@@ -539,12 +539,10 @@ Như vậy mình thử truy cập **`bin\tempbin.dll`** để download file này
 
 ### `bin\tempbin.dll`
 
-[tempbin.dll](tempbin.dll)
-
 Sau khi lấy được file **`tempbin.dll`** thì mình thực hiện decompile lại để có thể đọc file này bằng **`ILSPy`** (⓿_⓿) và ****Sau khi mình decompile thì được như sau φ(*￣0￣)
 
 ```vbnet
-**protected void Page_Load(object sender, EventArgs e)
+protected void Page_Load(object sender, EventArgs e)
 {
 	string text = base.Request.QueryString["name"];
 	if (!string.IsNullOrEmpty(text))
@@ -602,8 +600,7 @@ Sau khi lấy được file **`tempbin.dll`** thì mình thực hiện decompile
 		}
 	}
 	base.ClientScript.RegisterStartupScript(GetType(), "showError", "showError('Invalid file path.')", addScriptTags: true);
-}**
-
+}
 ```
 
 Đọc kỹ thì thấy nó sẽ đọc qua tham số **`name`** tại dòng
@@ -728,5 +725,5 @@ Từ đây mình đã thực hiện lệnh **`cmd`** như vậy mình hoàn toà
 
 Từ đây mình thực đọc flag.
 
-
 ![image](/assets/images/redteam/WindowsInitialAccess/image%2065.png)
+
