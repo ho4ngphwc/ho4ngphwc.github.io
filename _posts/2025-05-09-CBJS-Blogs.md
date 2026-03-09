@@ -59,7 +59,7 @@ Do câu `query` được viết theo dạng truyền trực tiếp và được 
 Nó hiển thị ra lỗi do syntax từ đây là dấu hiệu chắc chắn của SQLi. Và đồng thời mình biết được cơ sỡ dữ liệu web dùng là **Postgresql** thông lỗi cú pháp trả về `pg_query`
 
 Tiếp tục chèn payload để xác định số cột và câu `query SELECT` đến để thực hiện `UNION SELECT` thì hai phải cân bằng về số cột.
->' ORDER BY 4---- -
+> `' ORDER BY 4---- -`
 
 Dùng `ORDER BY 4` để sắp xếp nếu đúng hoặc thấp hơn thì không cho ra lỗi còn nếu nhiều hơn thì sẽ ra lỗi. Còn `-- -` là để comment lại tất cả phía sau của câu `query`.
 
@@ -68,13 +68,13 @@ Dùng `ORDER BY 4` để sắp xếp nếu đúng hoặc thấp hơn thì không
 Khi `ORDER BY 5-- -` thì ra lỗi nên số cột là 4.
 
 Mình tiếp tục chèn payload để xác định vị trí nào có thể in ra được dữ liệu.
->' UNION SELECT 1,'a','b','c'---- -
+> `' UNION SELECT 1,'a','b','c'---- -`
 
 ![image](/assets/images/WPT/cbjs-blogs/image6.png)
 Thì mình thấy do query ra được chữ `a` hiển thị ra, thì đây là nơi mà dữ liệu của mình khi thực hiện sẽ có thể in ra được.
 
 Tiếp theo là cần xác định được version của database hiện đang dùng từ đây có thể tìm ra được nhiều lỗi không bị sót. 
->' UNION SELECT 1,version(),'b','c'---- -
+> `' UNION SELECT 1,version(),'b','c'---- -`
 
 ![image](/assets/images/WPT/cbjs-blogs/image7.png)
 
