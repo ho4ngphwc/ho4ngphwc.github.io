@@ -725,5 +725,4 @@ Từ đây mình đã thực hiện lệnh **`cmd`** như vậy mình hoàn toà
 
 Từ đây mình thực đọc flag.
 
-![image](/assets/images/redteam/WindowsInitialAccess/image%2065.png)
 
