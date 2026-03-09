@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Authentication"
+title:  "authentication"
 date:   2026-02-02 10:51:00 +0700
 tags: WPT
 categories: jekyll update
@@ -10,25 +10,25 @@ categories: jekyll update
 
 ---
 
-![image.png](/assets/images/WPT/Authen/image.png)
+![image.png](/assets/images/WPT/authen/image.png)
 
 Đầu tiên mình thấy có form login nhưng muốn vào được thì cần phải cung cấp đúng mã OTP. 
 
 Mình thử nhập một số điện thoại để nó có thể sinh ra mã OTP.
 
-![image.png](/assets/images/WPT/Authen/image%201.png)
+![image.png](/assets/images/WPT/authen/image%201.png)
 
 Khi mình thử nhập một mã OTP thì xem hành vi như thế nào.
 
-![image.png](/assets/images/WPT/Authen/image%202.png)
+![image.png](/assets/images/WPT/authen/image%202.png)
 
 Mình tiến hành đọc source code. 
 
-![image.png](/assets/images/WPT/Authen/image%203.png)
+![image.png](/assets/images/WPT/authen/image%203.png)
 
 Từ đây mình thấy là thời gian để cho mã OTP hết hạn là 15 phút như vậy là quá dài và mình hoàn toàn có thể đoán. 
 
-![image.png](/assets/images/WPT/Authen/image%204.png)
+![image.png](/assets/images/WPT/authen/image%204.png)
 
 Như vậy sau khi đoán thì mã OTP là **`3478`** 
 
@@ -38,9 +38,9 @@ Như vậy sau khi đoán thì mã OTP là **`3478`**
 
 Tương tự như level 1 nhưng nó đã có biện pháp ngăn chặn bằng **rate-limit.** Nghĩa là bị giới hạn khi gửi request
 
-![Screenshot 2026-02-02 145222.png](/assets/images/WPT/Authen/Screenshot_2026-02-02_145222.png)
+![Screenshot 2026-02-02 145222.png](/assets/images/WPT/authen/Screenshot_2026-02-02_145222.png)
 
-![Screenshot 2026-02-02 145323.png](/assets/images/WPT/Authen/Screenshot_2026-02-02_145323.png)
+![Screenshot 2026-02-02 145323.png](/assets/images/WPT/authen/Screenshot_2026-02-02_145323.png)
 
 Nhưng nó xác định người gửi bằng **`HTTP_X_FORWARDED_FOR`** từ đây mình có thể giả mạo.
 
@@ -124,8 +124,8 @@ if __name__ == "__main__":
 
 Sau đó mình chạy thì thu được kết quả. 
 
-![image.png](/assets/images/WPT/Authen/image%205.png)
+![image.png](/assets/images/WPT/authen/image%205.png)
 
 Sau đó mình login vào trang.
 
-![image.png](/assets/images/WPT/Authen/image%206.png)
+![image.png](/assets/images/WPT/authen/image%206.png)

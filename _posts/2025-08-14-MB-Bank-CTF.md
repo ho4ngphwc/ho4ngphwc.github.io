@@ -11,26 +11,26 @@ categories: jekyll update
 * Giao diện web 
 
 Phần login:
-![image](https://hackmd.io/_uploads/HJPIUJDOlg.png)
+![image](/assets/images/CTF/mb-bank/quickblog/image1.png)
 
 Phần register: 
-![image](https://hackmd.io/_uploads/BJh_LkD_ee.png)
+![image](/assets/images/CTF/mb-bank/quickblog/image2.png)
 
 Sau khi đăng ký và đăng nhập thì vào được dashboard: 
 
-![image](https://hackmd.io/_uploads/BkH2Uywdxl.png)
+![image](/assets/images/CTF/mb-bank/quickblog/image3.png)
 
-![image](https://hackmd.io/_uploads/SJNaUJv_ge.png)
+![image](/assets/images/CTF/mb-bank/quickblog/image4.png)
 
 ## Review Source Code 
 
-![image](https://hackmd.io/_uploads/HyytfEOOxx.png)
+![image](/assets/images/CTF/mb-bank/quickblog/image5.png)
 
  thư mục của project như trên. 
 
 Đọc qua file `requirement.txt`
 
-![image](https://hackmd.io/_uploads/Sy5gdVddee.png)
+![image](/assets/images/CTF/mb-bank/quickblog/image6.png)
 
 Từ đây thì có thể đoán web chạy trên web server của CherryPy 18.10.0
 
@@ -96,7 +96,7 @@ Tiến hành đọc qua các file `supervisord.conf`, `readflag.c` và `entrypoi
 
 File `supervisord.conf`
 
-![image](https://hackmd.io/_uploads/HJ-ZHVOdxe.png)
+![image](/assets/images/CTF/mb-bank/quickblog/image7.png)
 
 Mục tiêu của file này là:
 - Chạy tiến trình `python3 app.py` (web server CherryPy) trong thư mục `/app`
@@ -107,14 +107,14 @@ Mục tiêu của file này là:
 
 File `readflag.c`
 
-![image](https://hackmd.io/_uploads/By9WDN_dex.png)
+![image](/assets/images/CTF/mb-bank/quickblog/image8.png)
 
 Mục tiêu file này là:
 - Chạy lệnh system để đọc file flag
 
 File `entrypoint.sh`
 
-![image](https://hackmd.io/_uploads/rJi4PNu_xe.png)
+![image](/assets/images/CTF/mb-bank/quickblog/image9.png)
 
 Mục tiêu file này là: 
 - Sinh ra mật khẩu admin ngẫu nhiên 
@@ -124,69 +124,69 @@ Mục tiêu file này là:
 
 Tiếp theo mình xem qua file `app.py`. Vì file này khá dài nên mình sẽ tách ra từng phần. 
 
-![image](https://hackmd.io/_uploads/ryTUK4_Oxe.png)
+![image](/assets/images/CTF/mb-bank/quickblog/image10.png)
 
 Ở đây chứa các thư viện của project đang dùng. Có các thư viện như `webdriver` và cả `BackgroundScheduler` giống như chạy 1 tiến trình gì đó dưới dạng Background vậy. 
 
-![image](https://hackmd.io/_uploads/B1W6Y4Oueg.png)
+![image](/assets/images/CTF/mb-bank/quickblog/image11.png)
 
 Phần này lấy password admin bằng biến môi trường và set admin_user. 
 
-![image](https://hackmd.io/_uploads/rkdbqVOulx.png)
+![image](/assets/images/CTF/mb-bank/quickblog/image12.png)
 
 Tiếp theo các phần dưới này là phần text dưới dạng bài post nhưng được viết dưới dạng `markdown` vậy thì nó web có thể hỗ trợ `markdown`. 
 
-![image](https://hackmd.io/_uploads/H1x3qVO_gl.png)
+![image](/assets/images/CTF/mb-bank/quickblog/image13.png)
 
 Dưới đây thì các nội dung của post được encode lại dưới dạng base64. Và ghi các thông tin ngày tháng. 
 
-![image](https://hackmd.io/_uploads/rJXZj4O_ex.png)
+![image](/assets/images/CTF/mb-bank/quickblog/image14.png)
 
 Có thêm 1 biến đếm bài là `post_counter=8`
 
-![image](https://hackmd.io/_uploads/ByMLiE_uge.png)
+![image](/assets/images/CTF/mb-bank/quickblog/image15.png)
 
 Tiếp theo, nó là tạo ra 1 đường dẫn cho `uploads` trong thư mục hiện tại trả về đường dẫn tuyệt đối. Nếu đang chạy tại `/app` thì nó sẽ là `/app/uploads` 
 
 Tương tự, cho folder `sessions` là `/app/sessions`
 
-![image](https://hackmd.io/_uploads/Sy2VxSdOle.png)
+![image](/assets/images/CTF/mb-bank/quickblog/image16.png)
 
 Ở đây thì có 1 hàm validate string thì chỉ cho phép nhập chữ thường hoặc chữ thương chứ `_`
 
 Và có thêm hàm để kiểm tra có phải user `admin` hay ko ?
  
-![image](https://hackmd.io/_uploads/SJCbzS_Ogx.png)
+![image](/assets/images/CTF/mb-bank/quickblog/image17.png)
 
 Ở đây thì có 1 hàm `bot_runner` và `bot_thread`. Bot này sẽ login vào dưới dạng admin. Cho nên đây cũng là phần đáng chú ý!!! 
 
 Đến với các chức năng của web này thì được chứa trong 1 class là `Class BlogAPI`
 
-![image](https://hackmd.io/_uploads/H1qtGHu_lg.png)
+![image](/assets/images/CTF/mb-bank/quickblog/image18.png)
 
 Ở đây nó sẽ chứa các bài post trong tình trạng render `loading...` và có nút `admin` nếu username được trả về là True nếu là Admin. Và tiếp tục render ra template. 
 
-![image](https://hackmd.io/_uploads/r1jU7rOdxe.png)
+![image](/assets/images/CTF/mb-bank/quickblog/image19.png)
 
 Ở đây thì nếu có được tài khoản admin thì có page dành cho admin có chức năng upload. 
 
-![image](https://hackmd.io/_uploads/ByMmEHd_xx.png)
+![image](/assets/images/CTF/mb-bank/quickblog/image20.png)
 
 Ở đây thì chỗ render ra link Upload trong trang Admin đã upload.
 
-![image](https://hackmd.io/_uploads/rkmDErudlx.png)
+![image](/assets/images/CTF/mb-bank/quickblog/image21.png)
 
 Phần này thì giải quyết chức năng upload, và mình ko được upload và bị chặn upload từ localhost hay 127.0.0.1, mục đích là ngăn chặn chính server tự gửi file lên. 
 
 Và ở dòng tạo đường dẫn upload `upload_path` nó đã nối `upload_dir` vào trong `file.filename` nghĩa là tên file. Điều này hoàn toàn có thể dẫn tới **path_traversal**. 
 
-![image](https://hackmd.io/_uploads/HJ-ssB_Olg.png)
+![image](/assets/images/CTF/mb-bank/quickblog/image22.png)
 
 Ở đây thực hiện chức năng `get_post_content` nghĩa là đọc nội dung của bài post theo `post_id`
 
 Và hàm login và nó cũng dùng `validate_input` cho username và lưu `session['username']` bằng chính `username` đó lun. Sau đó thì chuyển hướng tới `/` vì như ko có lưu dô mysql dì hết nên ko có sqli đâu nhaaa !!! 
 
-![image](https://hackmd.io/_uploads/HJe2hA_dxl.png)
+![image](/assets/images/CTF/mb-bank/quickblog/image23.png)
 
 `logout` thì xóa session rồi chuyển về `/login`
 
@@ -283,13 +283,13 @@ Hàm tạo bài viết mới là `new_post` do dài quá nên mình copy vào đ
 - `content` được lưu nguyên Base64 chứ ko decode ở server
 - Sau khi lưu ➡️ redirect về trang chủ 
 
-![image](https://hackmd.io/_uploads/rk4dzkt_ge.png)
+![image](/assets/images/CTF/mb-bank/quickblog/image24.png)
 
 Đây là phần sẽ render ra các template trong đó các file javascript là: 
 - `markdown2html.js`
 - `app.js` 
 
-![image](https://hackmd.io/_uploads/ryRKmkK_gx.png)
+![image](/assets/images/CTF/mb-bank/quickblog/image25.png)
 
 Đây là hàm main làm các nhiệm vụ là: 
 - Load các file `static`
@@ -301,26 +301,26 @@ Tiến hành đọc 2 file này thoaiii 😊
 
 File `markdown2html.js`, đọc sơ qua thì file làm nhiệm vụ chuyển đổi các tag dạng `markdown` sang tag `html`:
 
-![image](https://hackmd.io/_uploads/SkmKjJYOxe.png)
+![image](/assets/images/CTF/mb-bank/quickblog/image26.png)
 
 - Phần này nó sẽ chuyển đổi các tag `<` thành `&lt;` để tránh bị HTML injection. 
 Xử lý link và email: 
 - Gọi hàm `wraplinks()` và `wrapEmails()` để tự động biến URL hoặc email
 - Tách nội dung theo đoạn `\n\n` => sau đó xử lý từng đoạn thành HTML riêng. 
 
-![image](https://hackmd.io/_uploads/ByYURJtueg.png)
+![image](/assets/images/CTF/mb-bank/quickblog/image27.png)
 
 Dùng các biến để set ban đầu cho việc lập trình lúc sau. 
 
-![image](https://hackmd.io/_uploads/SkVBylFdee.png)
+![image](/assets/images/CTF/mb-bank/quickblog/image28.png)
 
 Phần này nó dùng để xử lý khoảng trắng nếu `$~` thì nó xử lý như sau:
 - set `insideDollar = false` và `result = ''`
 - duyệt qua các ký tự nếu `$` thì `insideDollar = true` và nếu `insideDollar = true` rồi và có ký tự `~` thì `result += &nbsp;`, cúi cùng cộng các ký tự lại. 
 
-![image](https://hackmd.io/_uploads/SylnGeY_lg.png)
+![image](/assets/images/CTF/mb-bank/quickblog/image29.png)
 
-![image](https://hackmd.io/_uploads/ry_gQxK_gl.png)
+![image](/assets/images/CTF/mb-bank/quickblog/image30.png)
 - Phần này xử lý bullet lists dựa trên regex là bắt đầu ở đầu dòng có dấu `-`, `+` hoặc `*` và theo sau đó là khoảng trắng thì là bullet list đầy nội dung vào trong thẻ `<li>` sau đó bỏ vào thẻ `<ul>`. 
 - Xử lý số cũng theo dạng regex là `\d+` là nhìu số, `\.\` là dấu chấm và `\s` là khoảng trắng sau đó thì được bỏ vào thẻ `<li>` rồi đẩy vào thẻ `<ol>`
 
@@ -478,31 +478,31 @@ Trong phần này thì nó handle phần codeblock nghĩa là khi bắt đầu b
 
 Và mình nhận ra 1 điều là nó ko hoàn toàn escape dấu `'` ở đoạn. 
 
-![image](https://hackmd.io/_uploads/H1G5iTKdgl.png)
+![image](/assets/images/CTF/mb-bank/quickblog/image31.png)
 
 Khi lấy codeLanguage thì ko thoát dấu `'` thì hoàn toàn có thể bị inject vào để thoát dấu `'`. 
 
 ## Khai thác 
 
-![image](https://hackmd.io/_uploads/Hy9LfzoOxe.png)
+![image](/assets/images/CTF/mb-bank/quickblog/image32.png)
 
 Khi đó nó sẽ xử lý như sau: 
 
-![image](https://hackmd.io/_uploads/rk-sfzsOge.png)
+![image](/assets/images/CTF/mb-bank/quickblog/image33.png)
 
 Từ đây, mình có thể inject payload này như sau: 
 
-![image](https://hackmd.io/_uploads/Ske17GiOge.png)
+![image](/assets/images/CTF/mb-bank/quickblog/image34.png)
 
 Ứng dụng xử lý như sau: 
 
-![image](https://hackmd.io/_uploads/SyKEQGiuxl.png)
+![image](/assets/images/CTF/mb-bank/quickblog/image35.png)
 
 Như vậy hoàn toàn mình có thể inject để dẫn đến XSS như sau: 
 
-![image](https://hackmd.io/_uploads/SkZ0QGoOge.png)
+![image](/assets/images/CTF/mb-bank/quickblog/image36.png)
 
-![image](https://hackmd.io/_uploads/HyaRXMiOgx.png)
+![image](/assets/images/CTF/mb-bank/quickblog/image37.png)
 
 Nó hoàn toàn xảy ra XSS. Từ đây mình có thể tìm ra bug XSS để cho bot thực hiện nhấp vào để lấy được session của nó. 
 
@@ -598,54 +598,54 @@ print(xss())
 
 Vì khi trong payload thực hiện nó sẽ đi từ `ascii` => `hex` thì nó sẽ hiển thị như sau: 
 
-![image](https://hackmd.io/_uploads/BkIPpfjdgg.png)
+![image](/assets/images/CTF/mb-bank/quickblog/image38.png)
 
 Nếu để `0x41` hày `0xa` thì javaScript sẽ hoàn toàn ko hiểu nên cần đổi sang `\x41` và `\x0a`. 
 
 Từ đây mình khai thác DNS server qua Burp Collaborator. 
 
 Sau khi chạy payload:
-![image](https://hackmd.io/_uploads/HkVLAGjOgl.png)
+![image](/assets/images/CTF/mb-bank/quickblog/image39.png)
 
 Và DNS log trả về:
-![image](https://hackmd.io/_uploads/r13qRzjdlx.png)
+![image](/assets/images/CTF/mb-bank/quickblog/image40.png)
 
 Sau khi decode từ Hex:
-![image](https://hackmd.io/_uploads/S1tGyXsdgg.png)
+![image](/assets/images/CTF/mb-bank/quickblog/image41.png)
 
 Và mình copy đoạn session này để vào admin như sau: 
 
-![image](https://hackmd.io/_uploads/Skq-x7sOex.png)
+![image](/assets/images/CTF/mb-bank/quickblog/image42.png)
 
 Như đã phân tích thì trong trang admin có chức năng upload và chức năng này dẫn đến path traversal. 
 
-![image](https://hackmd.io/_uploads/SJeXeQsOel.png)
+![image](/assets/images/CTF/mb-bank/quickblog/image43.png)
 
 Nên mình thử upload 1 file và quan sát response!! 
 
-![image](https://hackmd.io/_uploads/SkIhgXjOxl.png)
+![image](/assets/images/CTF/mb-bank/quickblog/image44.png)
 
 Điểm chú ý là nó dùng hàm để lấy đường dẫn tuyệt đối. 
 
-![image](https://hackmd.io/_uploads/rklsmmodle.png)
+![image](/assets/images/CTF/mb-bank/quickblog/image45.png)
  
 Nhưng nó ko trả về gì hết !!! 
 
 Nên mình thử thay đổi thành `/phuc` rồi vào docker xem sao. 
 
-![image](https://hackmd.io/_uploads/rkp1N7iOxe.png)
+![image](/assets/images/CTF/mb-bank/quickblog/image46.png)
 
 Mình thấy nó tạo ra 1 folder là `/phuc` lun. Và quan sát trong folder `/app` thì có `sessions`. 
 
-![image](https://hackmd.io/_uploads/SJ7yH7sdll.png)
+![image](/assets/images/CTF/mb-bank/quickblog/image47.png)
 
 Vì đến đây là hết ý tưởng nên mình thử tìm source của Cherrypy=18.10.0 để đọc thử để xem nó xử lý session như thế nào. 
 
-![image](https://hackmd.io/_uploads/r1T3SXo_ee.png)
+![image](/assets/images/CTF/mb-bank/quickblog/image48.png)
 
 Ở đây nó xử lý bằng load 1 file lên mà ko có biện pháp bảo vệ và nó được xác định bằng hàm `get_file_path()`
 
-![image](https://hackmd.io/_uploads/HJ8MU7jdgl.png)
+![image](/assets/images/CTF/mb-bank/quickblog/image49.png)
 
 Và ở hàm này thì có biện pháp chặn path traversal. 
 
@@ -686,7 +686,7 @@ Nhưng khi chạy script thì nó và sau đó nếu mình load trong cookie là
 
 Và mình truy cập được flag. 
 
-![image](https://hackmd.io/_uploads/HJhyOXiOeg.png)
+![image](/assets/images/CTF/mb-bank/quickblog/image50.png)
 
 
 
