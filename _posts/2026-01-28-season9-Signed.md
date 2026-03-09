@@ -8,8 +8,6 @@ categories: jekyll update
 
 # Recon 
 
----
-
 Đầu tiên, mình thực recon qua **nmap** thu được kết quả như sau: 
 
 ```nmap 
@@ -56,8 +54,6 @@ Như vậy mình ghi vào trong `/etc/hosts`
 Kèm theo 1 credential được cung cấp là: `scott:Sm230#C5NatH`
 
 # Khai thác MSSQL 
-
----
 
 Từ đây mình khai thác service này với credential được cung cấp. 
 
@@ -373,8 +369,6 @@ SELECT * FROM OPENROWSET(BULK 'C:\Users\Administrator\Desktop\root.txt',SINGLE_C
 
 ![image](/assets/images/HTB/season9/Signed/image46.png)
 
-![image](/assets/images/HTB/season9/Signed/image47.png)
-
 ### Thông tin tìm được 
 
 Ở đây, mình đã tìm ra 1 credentials admin
@@ -395,3 +389,5 @@ Quay lại chỗ netcat lắng nghe port 9999.
 ![image](/assets/images/HTB/season9/Signed/image50.png)
 
 ![image](/assets/images/HTB/season9/Signed/image51.png)
+
+![image](/assets/images/HTB/season9/Signed/image47.png)
