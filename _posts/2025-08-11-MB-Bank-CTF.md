@@ -34,7 +34,7 @@ Từ đây, mình bắt đầu đọc các file để tìm ra bug sqli.
 
 Sau khi truyền payload `../index.php` thì có được source như sau. 
 
-```PHP
+```php
 <?php
 error_reporting(0);
 include('conn.php');
@@ -216,7 +216,7 @@ echo "<!DOCTYPE html>
 
 Và file `conn.php` như sau: 
 
-```PHP=
+```php
 <?php
 $servername = "my_database";
 $username = "mb_credit_card";
