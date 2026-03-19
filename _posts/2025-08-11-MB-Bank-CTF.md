@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  "SQLi MBBank"
-date:   2025-08-11 10:38:00 +0700
+title: SQLi MBBank
+date: 2025-08-11 10:38:00 +0700
 tags: Writeup MBBankCTF
 categories: jekyll update
 ---

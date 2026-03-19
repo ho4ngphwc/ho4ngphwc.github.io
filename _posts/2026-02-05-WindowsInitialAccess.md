@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  "Windows Initial Access"
-date:   2026-02-05 10:15:00 +0700
+title: Windows Initial Access
+date: 2026-02-05 10:15:00 +0700
 tags: redteam WindowsInitialAccess
 categories: jekyll update
 ---

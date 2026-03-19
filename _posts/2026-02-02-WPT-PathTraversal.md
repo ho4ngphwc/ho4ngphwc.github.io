@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  "Path Traversal"
-date:   2026-02-02 10:51:00 +0700
+title: Path Traversal
+date: 2026-02-02 10:51:00 +0700
 tags: WPT
 categories: jekyll update
 ---

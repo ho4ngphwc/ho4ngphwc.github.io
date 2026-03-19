@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Signed"
+title: Signed
 date: 2026-01-28 14:15:00 +0700
 tags: redteam Machine-Medium Windows
 categories: jekyll update

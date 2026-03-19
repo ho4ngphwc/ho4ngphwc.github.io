@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Hercules"
+title: Hercules
 date: 2026-02-02 10:00:00 +0700
 tags: redteam Machine-Insane Windows
 categories: jekyll update

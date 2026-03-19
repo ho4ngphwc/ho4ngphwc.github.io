@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  "QuickBlog - MBBank"
-date:   2025-08-14 16:09:00 +0700
+title: QuickBlog - MBBank
+date: 2025-08-14 16:09:00 +0700
 tags: Writeup MBBankCTF
 categories: jekyll update
 ---

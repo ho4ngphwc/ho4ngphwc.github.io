@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  "File Upload"
-date:   2026-01-27 10:37:00 +0700
+title:  File Upload
+date: 2026-01-27 10:37:00 +0700
 tags: WPT
 categories: jekyll update
 ---

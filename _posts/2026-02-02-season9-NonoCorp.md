@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Nonocorp"
+title: Nonocorp
 date: 2026-02-02 08:00:00 +0700
 tags: redteam Machine-Hard Windows
 categories: jekyll update

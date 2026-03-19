@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  "OS Command Injection"
-date:   2026-01-27 14:51:00 +0700
+title: OS Command Injection
+date: 2026-01-27 14:51:00 +0700
 tags: WPT
 categories: jekyll update
 ---

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "ExpressWay"
+title: ExpressWay
 date: 2026-01-27 14:15:00 +0700
 tags: redteam Machine-Easy Linux
 categories: jekyll update

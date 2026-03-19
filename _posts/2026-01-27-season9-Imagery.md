@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Imagery"
+title: Imagery
 date: 2026-01-27 14:15:00 +0700
 tags: redteam Machine-Medium Linux
 categories: jekyll update

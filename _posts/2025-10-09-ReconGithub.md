@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  "Recon Github"
-date:   2025-10-09 8:13:00 +0700
+title: Recon Github
+date: 2025-10-09 8:13:00 +0700
 tags: redteam Recon 
 categories: jekyll update
 ---
