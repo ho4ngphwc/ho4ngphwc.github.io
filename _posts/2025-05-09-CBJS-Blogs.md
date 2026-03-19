@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Report CBJS Blogs"
+title:  Report CBJS Blogs
 date:   2025-05-09 13:15:00 +0700
 tags: Report CBJS
 categories: jekyll update

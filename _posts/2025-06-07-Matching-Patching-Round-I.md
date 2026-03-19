@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  "Game Matching Patching Round 1"
-date:   2025-06-07 16:37:00 +0700
+title: Game Matching Patching Round 1
+date: 2025-06-07 16:37:00 +0700
 tags: CBJS 
 categories: jekyll update
 ---

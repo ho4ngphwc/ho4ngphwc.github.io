@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  "Report Mock Test"
-date:   2025-05-14 12:47:00 +0700
+title: Report Mock Test
+date: 2025-05-14 12:47:00 +0700
 tags: Report CBJS
 categories: jekyll update
 ---

@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  "Report Final Exam"
-date:   2025-05-23 22:00:00 +0700
+title: Report Final Exam
+date: 2025-05-23 22:00:00 +0700
 tags: Report CBJS
 categories: jekyll update
 ---
