@@ -2,7 +2,7 @@
 layout: post
 title: JWT Attack
 date: 2025-07-21 12:00:00 +0700
-tags: PortSwigger
+tags: PortSwigger Advanced
 categories: jekyll update
 ---
 
