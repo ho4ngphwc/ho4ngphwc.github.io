@@ -2,7 +2,7 @@
 layout: post
 title: CORS - Cross-origin Resouce Sharing
 date: 2025-08-08 12:00:00 +0700
-tags: PortSwigger
+tags: PortSwigger ClientSide
 categories: jekyll update
 ---
 
