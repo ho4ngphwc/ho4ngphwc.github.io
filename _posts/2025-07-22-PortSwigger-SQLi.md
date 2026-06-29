@@ -1,8 +1,8 @@
 ---
 layout: post
 title: SQL Injection
-date: 2025-07-22 12:00:00 +0700
-tags: PortSwigger sqli ServerSide
+date: 2025-07-23 12:00:00 +0700
+tags: PortSwigger ServerSide
 categories: jekyll update
 ---
 
