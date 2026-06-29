@@ -16,10 +16,6 @@ Nên mình truyền payload sau: `' OR 1=1-- -`
 
 ![image](/assets/images/PortSwigger/sqli/image2.png)
 
-#### Nguyên nhân gây lỗi
-
-Do câu query viết dưới dạng nối chuỗi.
-
 ## LAB02 
 
 ![image](/assets/images/PortSwigger/sqli/image3.png)
