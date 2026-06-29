@@ -2,7 +2,7 @@
 layout: post
 title: CSRF
 date: 2025-08-07 16:37:00 +0700
-tags: PortSwigger
+tags: PortSwigger ClientSide
 categories: jekyll update
 ---
 

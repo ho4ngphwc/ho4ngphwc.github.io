@@ -2,7 +2,7 @@
 layout: post
 title: XSS
 date: 2025-07-25 12:00:00 +0700
-tags: PortSwigger
+tags: PortSwigger ClientSide
 categories: jekyll update
 ---
 

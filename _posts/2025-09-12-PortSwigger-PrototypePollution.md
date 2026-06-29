@@ -2,7 +2,7 @@
 layout: post
 title: Prototype Pollution
 date: 2025-09-12 12:00:00 +0700
-tags: PortSwigger
+tags: PortSwigger Advanced
 categories: jekyll update
 ---
 

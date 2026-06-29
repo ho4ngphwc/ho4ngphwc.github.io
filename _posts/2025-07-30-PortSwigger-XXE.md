@@ -2,7 +2,7 @@
 layout: post
 title: XXE
 date: 2025-07-30 12:00:00 +0700
-tags: PortSwigger
+tags: PortSwigger ServerSide
 categories: jekyll update
 ---
 

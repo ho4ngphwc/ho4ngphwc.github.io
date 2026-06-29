@@ -2,7 +2,7 @@
 layout: post
 title: SSRF
 date: 2025-08-07 12:00:00 +0700
-tags: PortSwigger
+tags: PortSwigger ServerSide
 categories: jekyll update
 ---
 
